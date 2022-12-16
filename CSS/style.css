@@ -12,3 +12,7 @@
 .card-custom-bg{
     background: #fff;
 }
+#radio1{
+    display:none;
+    visibility:none;
+}
