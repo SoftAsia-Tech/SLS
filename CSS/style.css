@@ -16,3 +16,14 @@
     display:none;
     visibility:none;
 }
+.index_page_body{
+    background:url(../images/download.jpg);
+    position:cover;
+    /* position: fixed;  Sit on top of the page content */
+
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  background-color: #3986F9; /* Black background with opacity */
+ /* z-index: 2;  Specify a stack order in case you're using a different order for other elements */
+/*  cursor: pointer;  Add a pointer on hover */
+}

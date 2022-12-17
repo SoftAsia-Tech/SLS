@@ -13,13 +13,13 @@
               <p class="text-dark mb-5 fw-bold text-center"></p>
               <form action="register.php" method="POST">
                 <div class="form-outline form-white mb-4">
-                  
-                    <button class="btn btn-primary btn-block btn-lg px-5">Register as Student</button>
-                  
-                    <button class="btn btn-primary btn-block btn-lg px-5">Register as Teacher</button>
-                    <button class="btn btn-primary btn-block btn-lg px-5">Register as Parent</button>
-                    <button class="btn btn-primary btn-block btn-lg px-5">Register as School</button>
-                    <button class="btn btn-primary btn-block btn-lg px-5">Register as Principal</button>
+                    <a href="student_signup.php" class="btn btn-primary btn-block">Register as Student</a>
+                    <a href="principal_signup.php" class="btn btn-primary btn-block">Register as Principal</a>
+                    <a href="teacher_signup.php" class="btn btn-primary btn-block">Register as Teacher</a>
+                    <a href="school_signup.php" class="btn btn-primary btn-block">Register as School</a>
+                    <a href="parent_signup.php" class="btn btn-primary btn-block">Register as Parent</a>
+                    <!-- <button class="btn btn-primary btn-block btn-lg px-5">Register as Student</button> -->
+                    
                 </div>
               </form>
 
