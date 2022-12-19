@@ -8,11 +8,11 @@
 		$password = $_POST['password'];
 
 		try{
-			$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM sls_users WHERE email = :email");
+			$stmt = $conn->prepare("SELECT * FROM sls_users WHERE email = :email");
 			$stmt->execute(['email'=>$email]);
 			$row = $stmt->fetch();
 			// var_dump($row);
-			if($row['numrows'] > 0){
+			// if($row['numrows'] > 0){
 				// if($row['status']){
 					if(password_verify($password, $row['password'])){
 						if($row['role'] == "student"){
@@ -38,10 +38,10 @@
 				// else{
 				// 	$_SESSION['error'] = 'Account not activated.';
 				// }
-			}
-			else{
-				$_SESSION['error'] = 'Email not found';
-			}
+			// }
+			// else{
+			// 	$_SESSION['error'] = 'Email not found';
+			// }
 		}
 		catch(PDOException $e){
 			echo "There is some problem in connection: " . $e->getMessage();

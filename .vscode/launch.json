@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000
+        },
+        {
+            "name": "Listen for Xdebug",
+            "detail": "Waits for requests to debug.",
+            "type": "php",
+            "request": "launch"
+        },
+        {
+            "name": "Listen for Xdebug",
+            "detail": "Waits for requests to debug.",
+            "type": "php",
+            "request": "launch"
+        }
+    ]
+}
