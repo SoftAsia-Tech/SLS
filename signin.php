@@ -39,12 +39,12 @@
               <p class="text-dark mb-5 fw-bold text-center">Login</p>
               <form action="login.php" method="POST">
                 <div class="form-outline form-white mb-4">
-                  <label class="form-label text-dark" for="typeEmailX">Email</label>
-                  <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                  <label class="form-label text-dark" for="typeEmailX" >Email</label>
+                  <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg" />
                   <label class="form-label text-dark" for="typePasswordX">Password</label>
-                  <input type="password" id="typePasswordX" class="form-control form-control-lg"/><hr>
+                  <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg"/><hr>
                   <p class=""><a class="text-primary" href="#!">Forgot password?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-lg px-5" name="login" type="submit">Login</button></p>
-                  <p class="mb-0 text-dark">Don't have an account? <a href="signup.php" class="text-primary">Register</a></p>
+                  <p class="mb-0 text-dark">Don't have an account? <a href="register.php" class="text-primary">Register</a></p>
                 </div>
               </form>
             </div>

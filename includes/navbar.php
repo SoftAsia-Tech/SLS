@@ -15,16 +15,19 @@
       <li class="nav-item">
         
       </li>
-      <?php
+      
+    </ul>
+    <?php
             if(isset($_SESSION['student'])){
-              $image = (!empty($student['image'])) ? 'images/'.$student['image'] : 'images/profile.jpeg';
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
               echo '
-                <li class="dropdown user user-menu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="'.$image.'" class="user-image" alt="User Image">
-                    <span class="hidden-xs">'.$user['firstname'].' </span>
-                  </a>
-                </li>
+              
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
               ';
             }
             else{
@@ -34,7 +37,5 @@
               ";
             }
           ?>
-    </ul>
-    
   </div>
 </nav>
