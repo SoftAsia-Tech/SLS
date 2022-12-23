@@ -2,9 +2,10 @@
 	include 'database_conn.php';
 	session_start();
 
-	// if(isset($_SESSION['admin'])){
-	// 	header('location: admin/home.php');
-	// }
+	if(isset($_SESSION['teacher'])){
+		// header('location: teacher/teacher_dashboard.php');
+		// header('location: index.php');
+	}
 	
 	// if(isset($_SESSION[0'supplier'])){
 	// 	header('location: supplier/home.php');

@@ -30,6 +30,9 @@
               
               ';
             }
+            // elseif (isset($_SESSION['teacher'])) {
+            //   # code...
+            // }
             else{
               echo "
               <a href='signin.php' class='btn btn-primary'>Log In</a>

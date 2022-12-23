@@ -3,11 +3,12 @@
 <?php
   
   if(isset($_SESSION['student'])){
-    header('location: index.php');
+    header('location: student/student_dashboard.php');
   }
-  // if(isset($_SESSION['supplier'])){
-  //   header('location: supplier/home.php');
-  // }
+  if(isset($_SESSION['teacher'])){
+    // header('location: index.php');
+    header('location:  teacher/teacher_dashboard.php');
+  }
 ?>
 <body>
 <?php

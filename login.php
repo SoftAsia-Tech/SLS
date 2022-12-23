@@ -18,9 +18,9 @@
 						if($row['role'] == "student"){
 							$_SESSION['student'] = $row['id'];
 						}
-						// elseif ($row['role'] == "supplier" ){
-						// 	$_SESSION['supplier'] = $row['id'];
-						// }
+						elseif ($row['role'] == "teacher" ){
+							$_SESSION['teacher'] = $row['id'];
+						}
 						// elseif ($row['role'] == "user" ){
 						// 	$_SESSION['user'] = $row['id'];
 						// }
@@ -29,7 +29,11 @@
 						// }
 						// else{
 						// 	$_SESSION['user'] = $row['id'];
-						// } 
+						// }
+						else{
+							echo 'Nothing';
+						} 
+						
 					}
 					else{
 						$_SESSION['error'] = 'Icncorret Password';
