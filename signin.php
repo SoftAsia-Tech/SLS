@@ -9,6 +9,10 @@
     // header('location: index.php');
     header('location:  teacher/teacher_dashboard.php');
   }
+  if(isset($_SESSION['school'])){
+    // header('location: index.php');
+    header('location:  school/school_dashboard.php');
+  }
 ?>
 <body>
 <?php

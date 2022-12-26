@@ -7,9 +7,9 @@
 		// header('location: index.php');
 	}
 	
-	// if(isset($_SESSION[0'supplier'])){
+	if(isset($_SESSION['school'])){
 	// 	header('location: supplier/home.php');
-	// }
+	}
 
 	// if(isset($_SESSION['both'])){
 	// 	header('location: both/home.php');

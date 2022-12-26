@@ -30,9 +30,30 @@
               
               ';
             }
-            // elseif (isset($_SESSION['teacher'])) {
-            //   # code...
-            // }
+            elseif (isset($_SESSION['teacher'])) {
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
+              echo '
+              
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
+              ';
+            }
+            elseif (isset($_SESSION['school'])) {
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
+              echo '
+              
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
+              ';
+            }
             else{
               echo "
               <a href='signin.php' class='btn btn-primary'>Log In</a>

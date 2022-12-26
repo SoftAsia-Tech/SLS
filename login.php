@@ -21,9 +21,9 @@
 						elseif ($row['role'] == "teacher" ){
 							$_SESSION['teacher'] = $row['id'];
 						}
-						// elseif ($row['role'] == "user" ){
-						// 	$_SESSION['user'] = $row['id'];
-						// }
+						elseif ($row['role'] == "school" ){
+							$_SESSION['school'] = $row['id'];
+						}
 						// elseif ($row['role'] == "both" ){
 						// 	$_SESSION['both'] = $row['id'];
 						// }

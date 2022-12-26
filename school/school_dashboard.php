@@ -5,8 +5,8 @@
 <?php include '../includes/navbar.php'; ?>
 <div class="container-fluid">
     <div class="row-fluid">
-        <?php include 'student_dashboard_sidebarmenu.php'; ?>
         
+        <?php //include 'student_dashboard_sidebarmenu.php'; ?>
         <!--/span-->
         <div class="span9" id="content">
             <div class="row-fluid"></div>	
@@ -21,8 +21,9 @@
                             
                         </div>
                     </div>
-                </div>
                 <!-- /block -->
+                
+                </div>
             </div>
         </div>
     </div>
