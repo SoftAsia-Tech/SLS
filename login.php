@@ -15,7 +15,10 @@
 			// if($row['numrows'] > 0){
 				// if($row['status']){
 					if(password_verify($password, $row['password'])){
-						if($row['role'] == "student"){
+						if($row['role'] == "madmin"){
+							$_SESSION['madmin'] = $row['id'];
+						}
+						elseif($row['role'] == "student"){
 							$_SESSION['student'] = $row['id'];
 						}
 						elseif ($row['role'] == "teacher" ){
@@ -24,12 +27,12 @@
 						elseif ($row['role'] == "school" ){
 							$_SESSION['school'] = $row['id'];
 						}
-						// elseif ($row['role'] == "both" ){
-						// 	$_SESSION['both'] = $row['id'];
-						// }
-						// else{
-						// 	$_SESSION['user'] = $row['id'];
-						// }
+						elseif ($row['role'] == "principal" ){
+							$_SESSION['principal'] = $row['id'];
+						}
+						elseif ($row['role'] == "parent" ){
+							$_SESSION['parent'] = $row['id'];
+						}
 						else{
 							echo 'Nothing';
 						} 

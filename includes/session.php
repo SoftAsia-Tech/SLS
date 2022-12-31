@@ -2,6 +2,10 @@
 	include 'database_conn.php';
 	session_start();
 
+	if(isset($_SESSION['madmin'])){
+		// header('location: teacher/teacher_dashboard.php');
+		// header('location: index.php');
+	}
 	if(isset($_SESSION['teacher'])){
 		// header('location: teacher/teacher_dashboard.php');
 		// header('location: index.php');
@@ -9,6 +13,12 @@
 	
 	if(isset($_SESSION['school'])){
 	// 	header('location: supplier/home.php');
+	}
+	if(isset($_SESSION['principal'])){
+		// 	header('location: supplier/home.php');
+	}
+	if(isset($_SESSION['parent'])){
+		// 	header('location: supplier/home.php');
 	}
 
 	// if(isset($_SESSION['both'])){

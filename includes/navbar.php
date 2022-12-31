@@ -18,7 +18,21 @@
       
     </ul>
     <?php
-            if(isset($_SESSION['student'])){
+            if(isset($_SESSION['madmin'])){
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
+              echo '
+              <div>
+              <a href="schools.php" class="btn btn-primary">Schools</a>
+              </div>
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
+              ';
+            }
+            elseif(isset($_SESSION['student'])){
               $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
               echo '
               
@@ -43,6 +57,30 @@
               ';
             }
             elseif (isset($_SESSION['school'])) {
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
+              echo '
+              
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
+              ';
+            }
+            elseif (isset($_SESSION['principal'])) {
+              $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
+              echo '
+              
+              <a href="logout.php" class="btn btn-primary">Logout</a>
+              
+              <a href="#" class="" >
+                <img src="'.$image.'" class="user-image img-circle" width="40" height="40">
+              </a>
+              
+              ';
+            }
+            elseif (isset($_SESSION['parent'])) {
               $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
               echo '
               

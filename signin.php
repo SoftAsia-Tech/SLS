@@ -2,6 +2,9 @@
 <?php include 'includes/header.php';?>
 <?php
   
+  if(isset($_SESSION['madmin'])){
+    header('location: madmin/madmin_dashboard.php');
+  }
   if(isset($_SESSION['student'])){
     header('location: student/student_dashboard.php');
   }
@@ -12,6 +15,14 @@
   if(isset($_SESSION['school'])){
     // header('location: index.php');
     header('location:  school/school_dashboard.php');
+  }
+  if(isset($_SESSION['principal'])){
+    // header('location: index.php');
+    header('location:  principal/principal_dashboard.php');
+  }
+  if(isset($_SESSION['parent'])){
+    // header('location: index.php');
+    header('location:  parent/parent_dashboard.php');
   }
 ?>
 <body>

@@ -5,7 +5,7 @@
 <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
 <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/my_style.css" rel="stylesheet" media="screen">
+<!-- <link href="bootstrap/css/my_style.css" rel="stylesheet" media="screen"> -->
 <link href="vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="CSS/style.css">
 <link href="assets/DT_bootstrap.css" rel="stylesheet" media="screen">
