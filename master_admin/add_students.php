@@ -10,21 +10,18 @@
 		                    <div class="row-fluid">
 							<?php
                                 if(isset($_POST['save'])){
-                                    $id =$_POST['id'];
-                                    $firstname = $_POST['firstname'];
-                                    $email = $_POST['email'];
-                                    $password = $_POST['password'];
-                                    $role = $_POST['role'];
-                                
+                                    $class_id = $_SESSION['current_class'];
+                                    $s_name = $_POST['student_name'];
+                                    $s_email = $_POST['student_email'];
+                                    // $school_id = $_POST['school_id'];
+                                    
                                     $conn = $pdo->open();
                                 
-                                    // $stmt = $conn->prepare("SELECT * FROM sls_users WHERE role=school");
-                                    // $stmt->execute(['id'=>$id]);
-                                    // $row = $stmt->fetch( 
+                                    
                                     try{
-                                        $password = password_hash($password, PASSWORD_DEFAULT);
-		                                $stmt = $conn->prepare("INSERT INTO sls_users (id, email, password, firstname, role) VALUES (:id, :email, :password, :firstname, :role)");
-		                                $stmt->execute(['id'=>$id, 'email'=>$email, 'password'=>$password, 'firstname'=>$firstname, 'role'=>$role]);
+                                        
+		                                $stmt = $conn->prepare("INSERT INTO sls_students (classID, s_name, s_email) VALUES (:classID, :s_name, :s_email)");
+                                        $stmt->execute(['classID'=>$class_id, 's_name'=>$s_name, 's_email'=>$s_email]);
                                         // $_SESSION['success'] = 'Product added successfully';
                                     
                                     }
@@ -32,10 +29,10 @@
                                         $_SESSION['error'] = $e->getMessage();
                                     }
                                     
-                                    header('location: schools.php');
+                                    header('location: students.php');
                                     $pdo->close(); 
                                 }
-                                ?>
+                            ?>
 								 <script>
 								// alert('Data Already Exist');
 								// </script>
@@ -43,25 +40,23 @@
 		                        <!-- block -->
 		                        <div class="block">
 		                            <div class="navbar navbar-inner block-header">
-		                                <div class="muted pull-left">Add School</div>
+		                                <div class="muted pull-left">Add Students</div>
                                         
 		                            </div>
                                     
 		                            <div class="block-content collapse/* in*/">
-									<a href="schools.php"><i class="icon-arrow-left"></i> Back</a>
-									    <form class="form-horizontal" method="post">
+									    <a href="students.php"><i class="icon-arrow-left"></i> Back</a>
+									    <form action='' class="form-horizontal" method="post">
                                             <div class="control-group">
-                                            <input type="hidden" name="id" class="form-control form-control-lg"/>
-                                                <label class="control-label" for="inputEmail">School Name</label>
-                                                <input type="text" name="firstname" class="form-control"  id="inputEmail" placeholder="School Name">
-                                                <label class="control-label" for="inputPassword">Email</label>
-                                                <input type="email" class="span8 form-control" name="email" id="inputPassword" placeholder="email@email.com" required>
-                                                <label class="control-label" for="inputPassword">Password</label> 
-                                                <input type="Password" class="span1 form-control" name="password" id="inputPassword" required>
-                                                <label>
-
+                                                <input type="hidden" name="classID" class="form-control form-control-lg"/>
+                                                <label class="control-label" >Student Name</label>
+                                                <input type="text" name="student_name" value=""  class="form-control" required >
+                                                <label class="control-label">Email</label>
+                                                <input type="email" class="span8 form-control" value="" name="student_email"  required>
+                                                <!-- <input type="hidden" name="school_id" value=".$row['id']." class="form-control form-control-lg"/> -->
+                                                <!-- <label>
                                                     <input id="radio1" name="role" type="radio" checked="checked" value="school" ><label for=radio1> .</label><br>
-                                                </label>
+                                                </label> -->
                                                
                                                 <hr>	
                                                 <button name="save" type="submit" class="btn btn-info"><i class="icon-save"></i> Save</button>

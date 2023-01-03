@@ -2,8 +2,8 @@
 <?php include 'includes/header.php';?>
 <?php
   
-  if(isset($_SESSION['madmin'])){
-    header('location: madmin/madmin_dashboard.php');
+  if(isset($_SESSION['master_admin'])){
+    header('location: master_admin/madmin_dashboard.php');
   }
   if(isset($_SESSION['student'])){
     header('location: student/student_dashboard.php');

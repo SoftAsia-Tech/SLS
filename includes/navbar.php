@@ -18,11 +18,12 @@
       
     </ul>
     <?php
-            if(isset($_SESSION['madmin'])){
+            if(isset($_SESSION['master_admin'])){
               $image = (!empty($student['image'])) ? '../images/'.$student['image'] : '../images/profile.jpeg';
               echo '
               <div>
               <a href="schools.php" class="btn btn-primary">Schools</a>
+              
               </div>
               <a href="logout.php" class="btn btn-primary">Logout</a>
               

@@ -15,8 +15,8 @@
 			// if($row['numrows'] > 0){
 				// if($row['status']){
 					if(password_verify($password, $row['password'])){
-						if($row['role'] == "madmin"){
-							$_SESSION['madmin'] = $row['id'];
+						if($row['role'] == "master_admin"){
+							$_SESSION['master_admin'] = $row['id'];
 						}
 						elseif($row['role'] == "student"){
 							$_SESSION['student'] = $row['id'];

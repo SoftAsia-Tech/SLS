@@ -2,7 +2,7 @@
 	include 'database_conn.php';
 	session_start();
 
-	if(isset($_SESSION['madmin'])){
+	if(isset($_SESSION['master_admin'])){
 		// header('location: teacher/teacher_dashboard.php');
 		// header('location: index.php');
 	}

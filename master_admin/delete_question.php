@@ -1,13 +1,13 @@
 <?php
 include('../includes/database_conn.php');
 
-if(isset($_POST['delete_school'])){
+if(isset($_POST['delete_question'])){
     
-        $id = $_POST['delete_school'];
+        $id = $_POST['delete_question'];
         
         $conn = $pdo->open();
         try{
-        $stmt = $conn->prepare("DELETE FROM sls_users WHERE id=:id");
+        $stmt = $conn->prepare("DELETE FROM sls_questions WHERE id=:id");
         $stmt->execute(['id'=>$id]);
         
         }catch(PDOException $e){
@@ -16,5 +16,5 @@ if(isset($_POST['delete_school'])){
 
         $pdo->close();
     }
-header('location: schools.php');
+header('location: questions.php');
 ?>

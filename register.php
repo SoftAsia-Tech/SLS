@@ -16,7 +16,7 @@
                     <a href="student_signup.php" class="btn btn-primary btn-block">Register as Student</a>
                     <a href="principal_signup.php" class="btn btn-primary btn-block">Register as Principal</a>
                     <a href="teacher_signup.php" class="btn btn-primary btn-block">Register as Teacher</a>
-                    <a href="school_signup.php" class="btn btn-primary btn-block">Register as School</a>
+                    <!-- <a href="school_signup.php" class="btn btn-primary btn-block">Register as School</a> -->
                     <a href="parent_signup.php" class="btn btn-primary btn-block">Register as Parent</a>
                     <!-- <button class="btn btn-primary btn-block btn-lg px-5">Register as Student</button> -->
                     

@@ -20,5 +20,6 @@ Class Database{
    		$this->conn = null;
  	}
 }
+
 $pdo = new Database();
 ?>

@@ -55,7 +55,7 @@
 								<?php
                     $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $stmt = $conn->prepare("SELECT * FROM sls_users WHERE role='school'");
+                    $stmt = $conn->prepare("SELECT * FROM sls_schools");
                     $stmt->execute();
                     $rows = $stmt-> fetchAll();
                     foreach($rows as $row){
@@ -68,13 +68,14 @@
                         // var_dump( $id); 
                         echo " 
                             <tr> 
-                                    <td>".$row['firstname'].' '.$row['lastname']."</td>
+                                    <td>".$row['firstname']."</td>
                                     <td>".$row['email']."</td>
                                     <td width='30'>
                                     </td>
                                     <td> 
                                         <form action='classes.php' method='POST'>
-                                          <button  type='submit' class='btn btn-primary' value=". $row['id']." name='details_school_btn'>Details</button>  
+                                          <input type='hidden' name='school_name' value=".$row['firstname'].">
+                                          <button  type='submit' class='btn btn-primary' value=". $row['id']." name='details_school_btn'>Classes</button>  
                                         </form>
                                         <form action='delete_school.php' method='POST'>       
                                             <button  type='submit' class='btn btn-danger' value=". $row['id']." name='delete_school'>Delete</button>  

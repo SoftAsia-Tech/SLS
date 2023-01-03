@@ -1,9 +1,9 @@
 <?php
 include('../includes/database_conn.php');
 	if ($_POST['update_btn']) {
-		$firstname = $_POST['firstname'];
-		$email = $_POST['email'];
-		$password = $_POST['password'];
+		$c_name = $_POST['c_name'];
+		$c_section = $_POST['c_section'];
+		// $password = $_POST['password'];
 		// $firstname = $row['firstname'];
 		// $email = $row['email'];
 		// $password = $row['password'];
@@ -11,7 +11,7 @@ include('../includes/database_conn.php');
 		$id = $_POST['update_btn'];
 		$conn = $pdo->open();
 		try {
-		$stmt = $conn->prepare("UPDATE sls_users SET firstname='$firstname', email='$email', password='$password' WHERE id=$id");
+		$stmt = $conn->prepare("UPDATE sls_classes SET c_name='$c_name', c_section='$c_section' WHERE id=$id");
 		$stmt->execute();
 
 		} catch (PDOException $e) {
@@ -21,6 +21,6 @@ include('../includes/database_conn.php');
 		$pdo->close();
 	}
 
-	header('location: schools.php')
+	header('location: classes.php')
 
 ?>
