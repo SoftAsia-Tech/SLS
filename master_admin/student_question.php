@@ -92,7 +92,7 @@ if (isset($_SESSION['current_std_question'])) {
                                         <!-- <div>
                             Question: 
                         </div> -->
-                                        <form action='save_question_ans.php' method='POST'>
+                                        <form action='student_result.php' method='POST'>
                                             <?php
                                             if (isset($current_std_question)) {
                                                 $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
