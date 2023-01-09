@@ -5,12 +5,14 @@
 if (isset($_POST['resultByChapter_btn'])) {
     $chapterId = $_POST['resultByChapter_btn'];
     $_SESSION['current_chapterId'] = $_POST['resultByChapter_btn'];
+    $chpName = $_POST['chpName'];
+    $_SESSION['chpName'] = $_POST['chpName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
-    $studentID = $_SESSION['current_student'];
+    $stdID = $_SESSION['stdID'];
+    // $chpName = $_SESSION['chpName'];
+    $sbjName = $_SESSION['sbjName'];
 
   }
 if (isset($_SESSION['current_chapterId'])) {
@@ -18,9 +20,9 @@ if (isset($_SESSION['current_chapterId'])) {
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
-    $studentID = $_SESSION['current_student'];
+    $stdID = $_SESSION['stdID'];
+    $chpName = $_SESSION['chpName'];
+    $sbjName = $_SESSION['sbjName'];
 }
 
 ?>
@@ -64,8 +66,8 @@ if (isset($_SESSION['current_chapterId'])) {
                             <?php echo $school_name . " > ";
                             echo $class_name . " > ";
                             echo $studentName . " > ";
-                            echo $subject_name . " > ";
-                            echo $chapter_name
+                            echo $sbjName . " > ";
+                            echo $chpName
                             ?>
                             <!-- <div class="muted pull-left">Subjects List</div> -->
                         </div>
@@ -79,8 +81,9 @@ if (isset($_SESSION['current_chapterId'])) {
                                     <thead>
                                         <tr>
                                             <th width=20%>Exam No</th>
-                                            <!-- <th>Question</th> -->
-                                            <th></th>
+                                            <th width=20%>Exam Time</th>
+                                            <th>Question</th>
+                                            <th>Student Answer</th>
                                             <th>Result</th>
                                         </tr>
                                     </thead>
@@ -93,7 +96,7 @@ if (isset($_SESSION['current_chapterId'])) {
                                     // if (isset($last_id)) {
                                         $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
                                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                        $stmt = $conn->prepare("SELECT sls_exams.id AS examid, sls_exams.student_id, sls_exams.chapter_id AS examChapterid, sls_exams.exam_time, sls_results.id AS resultsid, sls_results.exam_id, sls_results.question_id,sls_results.student_answer, sls_questions.id AS questionid, sls_questions.question FROM sls_exams INNER JOIN sls_results ON sls_exams.id=sls_results.exam_id INNER JOIN sls_questions ON sls_results.question_id=sls_questions.id WHERE student_id=$studentID AND sls_exams.chapter_id=$chapterId");
+                                        $stmt = $conn->prepare("SELECT sls_exams.id AS examid, sls_exams.student_id, sls_exams.chapter_id AS examChapterid, sls_exams.exam_time, sls_results.id AS resultsid, sls_results.exam_id, sls_results.question_id,sls_results.student_answer, sls_questions.id AS questionid, sls_questions.question FROM sls_exams INNER JOIN sls_results ON sls_exams.id=sls_results.exam_id INNER JOIN sls_questions ON sls_results.question_id=sls_questions.id WHERE student_id=$stdID AND sls_exams.chapter_id=$chapterId ORDER BY sls_exams.id");
                                         $stmt->execute();
                                         $rows = $stmt->fetchAll();
                                         // $total_quastions =  count($rows);
@@ -107,12 +110,18 @@ if (isset($_SESSION['current_chapterId'])) {
 
                                             <tr>
                                                 <td>
-                                                ".$row['examid']."
+                                                ".$row['examid']."<br>
+                                                
+                                                </td>
+                                                <td>
+                                                ".$row['exam_time']."
                                                 </td>
                                                 
                                                 <td>
-                                                    
-                                                    
+                                                    ".$row['question']."
+                                                </td>
+                                                <td>
+                                                    ".$row['student_answer']."
                                                 </td>
                                                 <td>
                                                 </td>

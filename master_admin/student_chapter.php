@@ -5,26 +5,27 @@ if (isset($_POST['std_profile_chapter_btn'])) {
 
     $current_std_chapter = $_POST['std_profile_chapter_btn'];
     $_SESSION['current_std_chapter'] = $_POST['std_profile_chapter_btn'];
-    // $stdID = $_POST['stdID'];
-    // $_SESSION['stdID'] = $_POST['stdID'];
+    $stdID = $_POST['stdID'];
+    $_SESSION['stdID'] = $_POST['stdID'];
+    $sbjName = $_POST['sbjName'];
+    $_SESSION['sbjName'] = $_POST['sbjName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
-    $studentID = $_SESSION['current_student'];
+    // $subject_name = $_SESSION['subject_name'];
+    // $studentID = $_SESSION['current_student'];
   
 }
 if (isset($_SESSION['current_std_chapter'])) {
     $current_std_chapter = $_SESSION['current_std_chapter'];
-    // $stdID = $_SESSION['stdID'];
-    $subject_name = $_SESSION['subject_name'];
+    $stdID = $_SESSION['stdID'];
+    $sbjName = $_SESSION['sbjName'];
+    // $subject_name = $_SESSION['subject_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $chapter_name = $_SESSION['chapter_name'];
     $studentName = $_SESSION['s_name'];
-    $studentID = $_SESSION['current_student'];
-//   $currenChapter_name = $_SESSION['s_name'];
+    // $studentID = $_SESSION['current_student'];
+    // $currenChapter_name = $_SESSION['s_name'];
 }
 
 ?>
@@ -65,7 +66,7 @@ if (isset($_SESSION['current_std_chapter'])) {
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
-              <?php echo $school_name . " > " ; echo $class_name. " > "; echo $studentName." > "  ; echo $subject_name?>
+              <?php echo $school_name . " > " ; echo $class_name. " > "; echo $studentName." > "  ; echo $sbjName?>
               <!-- <div class="muted pull-left">Subjects List</div> -->
             </div>
             <div class="block-content /*collapse in*/">
@@ -102,9 +103,11 @@ if (isset($_SESSION['current_std_chapter'])) {
                             <div>
                                 ".$row['chapter_name']." 
                                 <form action='student_question.php' method='POST'>
-                                    <button   type='submit' class='btn btn-primary' value=".$row['id']." name='std_question_btn'>Questions</button>
-                                </form> 
-                                <form action='results_by_chpater.php' method='POST'>
+                                  <input type='hidden' name='chpName' value=" .$row['chapter_name']. ">
+                                  <button   type='submit' class='btn btn-primary' value=".$row['id']." name='std_question_btn'>Questions</button>
+                                  </form> 
+                                  <form action='results_by_chpater.php' method='POST'>
+                                    <input type='hidden' name='chpName' value=" .$row['chapter_name']. ">
                                     <button   type='submit' class='btn btn-primary' value='".$row['id']."' name='resultByChapter_btn'>Preveious Exams results</button>
                                 </form> 
                             </div>          

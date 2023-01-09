@@ -5,24 +5,33 @@ if (isset($_POST['std_question_btn'])) {
 
     $current_std_question = $_POST['std_question_btn'];
     $_SESSION['current_std_question'] = $_POST['std_question_btn'];
+    $chpName = $_POST['chpName'];
+    $_SESSION['chpName'] = $_POST['chpName'];
+    // $sbjName = $_POST['sbjName'];
+    // $_SESSION['sbjName'] = $_POST['sbjName'];
     // $_SESSION['s_name'] = $_POST['s_name'];
     // $cahpterID = $_SESSION['current_chapter'];
+    $stdID = $_SESSION['stdID'];
+    $sbjName = $_SESSION['sbjName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
-    $studentID = $_SESSION['current_student'];
+    // $subject_name = $_SESSION['subject_name'];
+    // $chapter_name = $_SESSION['chapter_name'];
+    // $studentID = $_SESSION['current_student'];
 }
 if (isset($_SESSION['current_std_question'])) {
     $current_std_question = $_SESSION['current_std_question'];
+    $stdID = $_SESSION['stdID'];
+    $chpName = $_SESSION['chpName'];
+    $sbjName = $_SESSION['sbjName'];
     $chapterID = $current_std_question;
-    $subject_name = $_SESSION['subject_name'];
+    // $subject_name = $_SESSION['subject_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $chapter_name = $_SESSION['chapter_name'];
+    // $chapter_name = $_SESSION['chapter_name'];
     $studentName = $_SESSION['s_name'];
-    $studentID = $_SESSION['current_student'];
+    // $studentID = $_SESSION['current_student'];
     // $cahpterID = $_SESSION['current_chapter'];
     // $currenChapter_name = $_SESSION['s_name'];
 }
@@ -68,8 +77,8 @@ if (isset($_SESSION['current_std_question'])) {
                             <?php echo $school_name . " > ";
                             echo $class_name . " > ";
                             echo $studentName . " > ";
-                            echo $subject_name . " > ";
-                            echo $chapter_name
+                            echo $sbjName . " > ";
+                            echo $chpName
                             ?>
                             <!-- <div class="muted pull-left">Subjects List</div> -->
                         </div>

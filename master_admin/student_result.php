@@ -66,20 +66,26 @@ if (isset($_POST['submit_answers'])) {
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
-    $studentID = $_SESSION['current_student'];
+    $stdID = $_SESSION['stdID'];
+    $chpName = $_SESSION['chpName'];
+    $sbjName = $_SESSION['sbjName'];
+    // $subject_name = $_SESSION['subject_name'];
+    // $chapter_name = $_SESSION['chapter_name'];
+    // $studentID = $_SESSION['current_student'];
     // $last_id = $_SESSION['current_examid'];
     
     $pdo->close();
   }
   if (isset($_SESSION['submit_answers'])) {
     // $last_id = $_SESSION['current_examid'];
+    $stdID = $_SESSION['stdID'];
+    $chpName = $_SESSION['chpName'];
+    $sbjName = $_SESSION['sbjName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
     $class_name = $_SESSION['class_name'];
-    $subject_name = $_SESSION['subject_name'];
-    $chapter_name = $_SESSION['chapter_name'];
+    // $subject_name = $_SESSION['subject_name'];
+    // $chapter_name = $_SESSION['chapter_name'];
     $studentID = $_SESSION['current_student'];
 }
 
@@ -124,8 +130,8 @@ if (isset($_POST['submit_answers'])) {
                             <?php echo $school_name . " > ";
                             echo $class_name . " > ";
                             echo $studentName . " > ";
-                            echo $subject_name . " > ";
-                            echo $chapter_name
+                            echo $sbjName . " > ";
+                            echo $chpName
                             ?>
                             <!-- <div class="muted pull-left">Subjects List</div> -->
                         </div>

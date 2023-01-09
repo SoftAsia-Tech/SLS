@@ -9,16 +9,12 @@ if (isset($_POST['details_studentProfile_btn'])) {
   $studentName = $_SESSION['s_name'];
   $school_name = $_SESSION['school_name'];
   $class_name = $_SESSION['class_name'];
-  $subject_name = $_SESSION['subject_name'];
-  $chapter_name = $_SESSION['chapter_name'];
   
 }
 if (isset($_SESSION['current_student'])) {
   $studentID = $_SESSION['current_student'];
-  $subject_name = $_SESSION['subject_name'];
   $school_name = $_SESSION['school_name'];
   $class_name = $_SESSION['class_name'];
-  $chapter_name = $_SESSION['chapter_name'];
   $studentName = $_SESSION['s_name'];
 }
 
@@ -100,6 +96,7 @@ if (isset($_SESSION['current_student'])) {
                             <div>
                                 ".$row['subject_name']." 
                                 <form action='student_chapter.php' method='POST'>
+                                    <input type='hidden' name='sbjName' value=" .$row['subject_name']. "> 
                                     <input type='hidden' name='stdID' value=" .$row['studentID']. "> 
                                     <button  type='submit' class='btn btn-primary' value=" . $row['subjectID'] . " name='std_profile_chapter_btn'>Chapters</button>
                                 </form>
