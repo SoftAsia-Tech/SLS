@@ -104,6 +104,9 @@ if (isset($_SESSION['current_std_chapter'])) {
                                 <form action='student_question.php' method='POST'>
                                     <button   type='submit' class='btn btn-primary' value=".$row['id']." name='std_question_btn'>Questions</button>
                                 </form> 
+                                <form action='results_by_chpater.php' method='POST'>
+                                    <button   type='submit' class='btn btn-primary' value='".$row['id']."' name='resultByChapter_btn'>Preveious Exams results</button>
+                                </form> 
                             </div>          
                         ";
                       }
