@@ -91,7 +91,7 @@ if (isset($_SESSION['current_class'])) {
                         $id = $row['id'];
                         // var_dump( $id); 
                         echo " 
-                                    <tr> 
+                                      <tr> 
                                         <td>" . $row['s_name'] . "</td>
                                         
                                         <td> 
@@ -107,7 +107,7 @@ if (isset($_SESSION['current_class'])) {
                                             </form>
                                             <!--<a href='edit_school.php?=" . $row['id'] . "' class='btn btn-success'> Edit</a>-->
                                         </td>
-                                    </tr>
+                                      </tr>
                         ";
                       }
                     }

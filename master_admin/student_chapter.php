@@ -1,25 +1,30 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
 <?php
-if (isset($_POST['details_studentProfile_btn'])) {
+if (isset($_POST['std_profile_chapter_btn'])) {
 
-  $studentID = $_POST['details_studentProfile_btn'];
-  $_SESSION['current_student'] = $_POST['details_studentProfile_btn'];
-  $_SESSION['s_name'] = $_POST['s_name'];
-  $studentName = $_SESSION['s_name'];
-  $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
-  $subject_name = $_SESSION['subject_name'];
-  $chapter_name = $_SESSION['chapter_name'];
+    $current_std_chapter = $_POST['std_profile_chapter_btn'];
+    $_SESSION['current_std_chapter'] = $_POST['std_profile_chapter_btn'];
+    // $stdID = $_POST['stdID'];
+    // $_SESSION['stdID'] = $_POST['stdID'];
+    $studentName = $_SESSION['s_name'];
+    $school_name = $_SESSION['school_name'];
+    $class_name = $_SESSION['class_name'];
+    $subject_name = $_SESSION['subject_name'];
+    $chapter_name = $_SESSION['chapter_name'];
+    $studentID = $_SESSION['current_student'];
   
 }
-if (isset($_SESSION['current_student'])) {
-  $studentID = $_SESSION['current_student'];
-  $subject_name = $_SESSION['subject_name'];
-  $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
-  $chapter_name = $_SESSION['chapter_name'];
-  $studentName = $_SESSION['s_name'];
+if (isset($_SESSION['current_std_chapter'])) {
+    $current_std_chapter = $_SESSION['current_std_chapter'];
+    // $stdID = $_SESSION['stdID'];
+    $subject_name = $_SESSION['subject_name'];
+    $school_name = $_SESSION['school_name'];
+    $class_name = $_SESSION['class_name'];
+    $chapter_name = $_SESSION['chapter_name'];
+    $studentName = $_SESSION['s_name'];
+    $studentID = $_SESSION['current_student'];
+//   $currenChapter_name = $_SESSION['s_name'];
 }
 
 ?>
@@ -55,12 +60,12 @@ if (isset($_SESSION['current_student'])) {
         }
         ?>
         <div class="row-fluid"><br>
-          <a href="students.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Students</a>
+          <a href="student_profile.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Subjects</a>
           <!-- <a href="add_questions.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add Question</a> -->
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
-              <?php echo $school_name . " > " ; echo $class_name. " > "; echo $studentName ?>
+              <?php echo $school_name . " > " ; echo $class_name. " > "; echo $studentName." > "  ; echo $subject_name?>
               <!-- <div class="muted pull-left">Subjects List</div> -->
             </div>
             <div class="block-content /*collapse in*/">
@@ -80,34 +85,26 @@ if (isset($_SESSION['current_student'])) {
                   </thead> -->
                   <tbody>
                     <div>
-                        Subjects Name: 
+                        Chapters Name: 
                     </div>
                     <?php
-                    if (isset($studentID)) {
+                    if (isset($current_std_chapter)) {
                       $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                      $stmt = $conn->prepare("SELECT sls_students.id AS studentID, sls_students.classID, sls_students.s_name, sls_students.s_email, sls_subjects.id AS subjectID, sls_subjects.class_id, sls_subjects.subject_name FROM sls_students INNER JOIN sls_subjects ON sls_students.classID = sls_subjects.class_id WHERE sls_students.id=$studentID");
+                      $stmt = $conn->prepare("SELECT * FROM sls_chapters WHERE subject_id=$current_std_chapter");
                       $stmt->execute();
                       $rows = $stmt->fetchAll();
                       foreach ($rows as $row) {
                         
                         // $id = $row['id'];
                          
-                        echo " 
-                             
-                            
-
+                        echo "  
                             <div>
-                                ".$row['subject_name']." 
-                                <form action='student_chapter.php' method='POST'>
-                                    <input type='hidden' name='stdID' value=" .$row['studentID']. "> 
-                                    <button  type='submit' class='btn btn-primary' value=" . $row['subjectID'] . " name='std_profile_chapter_btn'>Chapters</button>
-                                </form>
-                            </div>
-                                 
-                                        
-                                        
-                                    
+                                ".$row['chapter_name']." 
+                                <form action='student_question.php' method='POST'>
+                                    <button   type='submit' class='btn btn-primary' value=".$row['id']." name='std_question_btn'>Questions</button>
+                                </form> 
+                            </div>          
                         ";
                       }
                     }
