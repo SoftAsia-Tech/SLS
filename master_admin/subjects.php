@@ -99,6 +99,7 @@ if (isset($_SESSION['current_class'])) {
                                               <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
                                               <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_subject_btn'>Chaptes</button>
                                             </form> 
+                                             
                                              <form action='delete_subject.php' method='POST'>       
                                                 <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_subject'>Delete</button>  
                                             </form>

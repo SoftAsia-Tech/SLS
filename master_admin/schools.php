@@ -77,6 +77,10 @@
                                           <input type='hidden' name='school_name' value=".$row['firstname'].">
                                           <button  type='submit' class='btn btn-primary' value=". $row['id']." name='details_school_btn'>Classes</button>  
                                         </form>
+                                        <form action='teachers.php' method='POST'>
+                                          <input type='hidden' name='school_name' value=".$row['firstname'].">
+                                          <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='school_teachers_btn'>Teachers</button>
+                                        </form>
                                         <form action='delete_school.php' method='POST'>       
                                             <button  type='submit' class='btn btn-danger' value=". $row['id']." name='delete_school'>Delete</button>  
                                         </form>

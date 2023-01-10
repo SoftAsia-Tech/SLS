@@ -81,9 +81,10 @@ if (isset($_SESSION['current_chapterId'])) {
                                     <thead>
                                         <tr>
                                             <th width=20%>Exam No</th>
-                                            <th width=20%>Exam Time</th>
+                                            
                                             <th>Question</th>
                                             <th>Student Answer</th>
+                                            <th width=20%>Exam Time</th>
                                             <th>Result</th>
                                         </tr>
                                     </thead>
@@ -113,9 +114,7 @@ if (isset($_SESSION['current_chapterId'])) {
                                                 ".$row['examid']."<br>
                                                 
                                                 </td>
-                                                <td>
-                                                ".$row['exam_time']."
-                                                </td>
+                                               
                                                 
                                                 <td>
                                                     ".$row['question']."
@@ -123,10 +122,13 @@ if (isset($_SESSION['current_chapterId'])) {
                                                 <td>
                                                     ".$row['student_answer']."
                                                 </td>
+                                                 <td>
+                                                ".$row['exam_time']."
+                                                </td>
                                                 <td>
                                                 </td>
                                             </tr>  
-                                             
+                                            
                                             ";
                                                 }
                                             // }
@@ -135,6 +137,19 @@ if (isset($_SESSION['current_chapterId'])) {
                                         <!-- </form> -->
                                         <?php  //} 
                                         ?>
+                                        <!-- <div class='container shadow '>
+                                            <div class='row'>
+                                              <div class='col-sm'>
+                                                One of three columns
+                                              </div>
+                                              <div class='col-sm'>
+                                                One of three columns
+                                              </div>
+                                              <div class='col-sm'>
+                                                One of three columns
+                                              </div>
+                                            </div>
+                                        </div> -->
                                     </tbody>
 
                                 </table>
