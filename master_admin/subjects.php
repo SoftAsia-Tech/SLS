@@ -1,6 +1,7 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
 <?php
+
 if (isset($_POST['details_class_btn'])) {
 
   $class_subject_id = $_POST['details_class_btn'];
@@ -15,7 +16,17 @@ if (isset($_SESSION['current_class'])) {
   $class_name = $_SESSION['class_name'];
   $school_name = $_SESSION['school_name'];
 }
-
+$conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ $stmt = $conn->prepare("SELECT * FROM sls_teachers");
+ $stmt->execute();
+ $rows = $stmt->fetchAll();
+foreach ($rows as $row) {
+  $teacherid = $row['id'];
+  $_SESSION['teacherid'] = $row['id'];
+  $teachername = $row['teacher_name'];
+  $_SESSION['teacher_name'] = $row['teacher_name'];
+}
 ?>
 
 <body>
@@ -50,7 +61,9 @@ if (isset($_SESSION['current_class'])) {
         ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
-          <a href="add_subjects.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add Subjects</a>
+          <form action="add_subjects.php">
+            <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid ?>"> Add Subjects</button>
+          </form>
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
@@ -76,6 +89,8 @@ if (isset($_SESSION['current_class'])) {
 
 
                     <?php
+                     
+
                     if (isset($class_subject_id)) {
                       $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
                       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -91,24 +106,26 @@ if (isset($_SESSION['current_class'])) {
                         $id = $row['id'];
                         // var_dump( $id); 
                         echo " 
-                                      <tr> 
-                                        <td>" . $row['subject_name'] . "</td>
-                                        
-                                        <td> 
-                                            <form action='chapters.php' method='POST'>
-                                              <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
-                                              <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_subject_btn'>Chaptes</button>
-                                            </form> 
-                                             
-                                             <form action='delete_subject.php' method='POST'>       
-                                                <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_subject'>Delete</button>  
-                                            </form>
-                                            <form action='edit_subject.php' method='POST'>
-                                            <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_subject'>Edit</button>  
-                                            </form>
-                                            <!--<a href='edit_school.php?=" . $row['id'] . "' class='btn btn-success'> Edit</a>-->
-                                        </td>
-                                      </tr>
+                            <tr> 
+                              <td>" . $row['subject_name'] . "</td>
+                              
+                              <td> 
+
+                              
+                                  <form action='chapters.php' method='POST'>
+                                    <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
+                                    <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_subject_btn'>Chaptes</button>
+                                  </form> 
+                                   
+                                   <form action='delete_subject.php' method='POST'>       
+                                    <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_subject'>Delete</button>  
+                                  </form>
+                                  <form action='edit_subject.php' method='POST'>
+                                    <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_subject'>Edit</button>  
+                                  </form>
+                                  <!--<a href='edit_school.php?=" . $row['id'] . "' class='btn btn-success'> Edit</a>-->
+                              </td>
+                            </tr>
                         ";
                       }
                     }

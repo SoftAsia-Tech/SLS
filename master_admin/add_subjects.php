@@ -1,5 +1,13 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
+
+<?php 
+if(isset($_POST['addnew_subject'])){
+    $teacherid = $_POST['addnew_subject'];
+    $_SESSION['teacherid'] = $_POST['addnew_subject'];
+
+}
+?>
     <body>
 		<?php include('../includes/navbar.php'); ?>
         <div class="container-fluid">
@@ -11,6 +19,7 @@
 							<?php
                                 if(isset($_POST['save'])){
                                     $class_id = $_SESSION['current_class'];
+                                    $teacherid = $_SESSION['teacherid'];
                                     $subject_name = $_POST['subject_name'];
                                     // $section = $_POST['class_section'];
                                     // $school_id = $_POST['school_id'];
@@ -20,8 +29,8 @@
                                     
                                     try{
                                         
-		                                $stmt = $conn->prepare("INSERT INTO sls_subjects (class_id, subject_name) VALUES (:class_id, :subject_name)");
-                                        $stmt->execute(['class_id'=>$class_id, 'subject_name'=>$subject_name]);
+		                                $stmt = $conn->prepare("INSERT INTO sls_subjects (class_id, teacher_id, subject_name) VALUES (:class_id, :teacher_id, :subject_name)");
+                                        $stmt->execute(['class_id'=>$class_id, 'teacher_id'=>$teacherid, 'subject_name'=>$subject_name]);
                                         // $_SESSION['success'] = 'Product added successfully';
                                     
                                     }
