@@ -7,6 +7,7 @@ if (isset($_POST['details_class_btn'])) {
   $class_subject_id = $_POST['details_class_btn'];
   $_SESSION['current_class'] = $_POST['details_class_btn'];
   $_SESSION['class_name'] = $_POST['class_name'];
+
   $school_name = $_SESSION['school_name'];
   $class_name = $_POST['class_name'];
   
@@ -14,6 +15,7 @@ if (isset($_POST['details_class_btn'])) {
 if (isset($_SESSION['current_class'])) {
   $class_subject_id = $_SESSION['current_class'];
   $class_name = $_SESSION['class_name'];
+
   $school_name = $_SESSION['school_name'];
 }
 $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
@@ -97,6 +99,7 @@ foreach ($rows as $row) {
                       $stmt = $conn->prepare("SELECT * FROM sls_subjects WHERE class_id=$class_subject_id");
                       $stmt->execute();
                       $rows = $stmt->fetchAll();
+                      
                       foreach ($rows as $row) {
                         // foreach($stmt as
                         // $subject_query = mysqli_query($conn,"select * from subject")or die(mysqli_error());
@@ -110,8 +113,28 @@ foreach ($rows as $row) {
                               <td>" . $row['subject_name'] . "</td>
                               
                               <td> 
-
-                              
+                              ".  
+                              $conn= new PDO ('mysql:host=localhost;dbname=sls', 'root', '');
+                              $sql = 'SELECT * FROM sls_teachers';
+                              try{
+                                $stmt = $conn->prepare($sql);
+                                $stmt->execute();
+                                $rows = $stmt->fetchAll();
+                              }
+                              catch(PDOException $e){
+                                $_SESSION['error'] = $e->getMessage();
+                            }"
+                              <form action='' method='post'>
+                              <select name='courseName' class='custom-select'>
+                                  <option value=''>Select Course</option>
+                                  ". foreach ($rows as $row) {" 
+                                  <option value='<?php //echo $id ?>' ><?php ". print $row['teacher_name']." ?> </option>
+                                
+                                  ".}."
+                                  
+                              </select>
+                              <!-- <input type='submit' name='submit'> -->
+                              </form>                             
                                   <form action='chapters.php' method='POST'>
                                     <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
                                     <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_subject_btn'>Chaptes</button>
@@ -130,7 +153,28 @@ foreach ($rows as $row) {
                       }
                     }
                     ?>
-
+    <?php 
+    $sql = 'SELECT * FROM sls_teachers';
+    try{
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $rows = $stmt->fetchAll();
+    }
+    catch(PDOException $e){
+      $_SESSION['error'] = $e->getMessage();
+  }
+    ?>
+    <form action='' method='post'>
+    <select name='courseName' class='custom-select'>
+        <option value=''>Select Course</option>
+        <?php foreach ($rows as $output) { ?>
+        <option value='<?php //echo $id; ?>' ><?php echo $output['teacher_name']; ?> </option>
+       <?php
+        }
+        ?>
+    </select>
+    <!-- <input type="submit" name="submit"> -->
+    </form>
                   </tbody>
 
                 </table>

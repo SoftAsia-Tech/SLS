@@ -92,10 +92,12 @@ if (isset($_SESSION['current_school'])) {
                                                     </td>
                                                     <td> 
                                                         <form action='subjects.php' method='POST'>
+
                                                             <input type='hidden' name='class_name' value=" . $row['c_name'] . ">
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn'>Subjects</button>
                                                         </form>
                                                         <form action='students.php' method='POST'>
+                                                        
                                                             <input type='hidden' name='class_name1' value=" . $row['c_name'] . ">
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn1'>Students</button>
                                                         </form>

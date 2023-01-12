@@ -6,10 +6,12 @@ if (isset($_POST['school_teachers_btn'])) {
     $Schoolid = $_POST['school_teachers_btn'];
     $_SESSION['current_school'] = $_POST['school_teachers_btn'];
     $_SESSION['school_name'] = $_POST['school_name'];
+
     $school_name = $_POST['school_name'];
 }
 if (isset($_SESSION['current_school'])) {
     $Schoolid = $_SESSION['current_school'];
+
     $school_name = $_SESSION['school_name'];
 }
 ?>
