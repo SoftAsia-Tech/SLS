@@ -63,9 +63,10 @@ foreach ($rows as $row) {
         ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
-          <form action="add_subjects.php">
+          <a href="add_subjects.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i>Add Subjects</a>
+          <!-- <form action="add_subjects.php">
             <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid ?>"> Add Subjects</button>
-          </form>
+          </form> -->
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
@@ -134,7 +135,7 @@ foreach ($rows as $row) {
                               
                               <td width=30%> 
                               
-                              <form action='' method='post'>".$teachers_selection."</form>                             
+                                                           
                                   <form action='chapters.php' method='POST'>
                                     <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
                                     <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_subject_btn'>Chaptes</button>
