@@ -33,10 +33,12 @@
 												echo "
 													<div class='block-content collapse/* in*/'>
 														<a href='subjects.php'><i class='icon-arrow-left'></i> Back</a>
+														
 														<form action='update_subject.php' class='form-horizontal' method='post'>
 															<div class='control-group'>
 																<label class='control-label' >Subject Name</label>
 																<input type='text' name='subject_name' class='form-control' id='inputEmail' required value= ".$row['subject_name'].">
+																".$teachers_selection."
 																<hr>	
 																<button name='update_btn' type='submit' value=". $row['id']." class='btn btn-info'> Update</button>
 															</div>

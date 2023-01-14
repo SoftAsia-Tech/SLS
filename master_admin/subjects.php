@@ -84,7 +84,7 @@ foreach ($rows as $row) {
 
                       <th>Subject Name</th>
                       <!-- <th>Email</th> -->
-                      <th>Action</th>
+                      <th width=30%>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -132,8 +132,8 @@ foreach ($rows as $row) {
                             <tr> 
                               <td>" . $row['subject_name'] . "</td>
                               
-                              <td> 
-                              ". "
+                              <td width=30%> 
+                              
                               <form action='' method='post'>".$teachers_selection."</form>                             
                                   <form action='chapters.php' method='POST'>
                                     <input type='hidden' name='subject_name' value=" . $row['subject_name'] . ">
@@ -153,28 +153,6 @@ foreach ($rows as $row) {
                       }
                     }
                     ?>
-    <?php 
-    $sql = 'SELECT * FROM sls_teachers';
-    try{
-      $stmt = $conn->prepare($sql);
-      $stmt->execute();
-      $rows = $stmt->fetchAll();
-    }
-    catch(PDOException $e){
-      $_SESSION['error'] = $e->getMessage();
-  }
-    ?>
-    <form action='' method='post'>
-    <select name='courseName' class='custom-select'>
-        <option value=''>Select Course</option>
-        <?php foreach ($rows as $output) { ?>
-        <option value='<?php //echo $id; ?>' ><?php echo $output['teacher_name']; ?> </option>
-       <?php
-        }
-        ?>
-    </select>
-    <!-- <input type="submit" name="submit"> -->
-    </form>
                   </tbody>
 
                 </table>
