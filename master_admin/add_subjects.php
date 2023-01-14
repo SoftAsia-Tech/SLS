@@ -80,7 +80,7 @@
                                                    <!-- <form action='' method='post'> -->
                                                     <label for='teacher_ID'>Teacher</label>
                                                     <select name='teacher_ID' id="teacher_ID" class='custom-select'>
-                                                       <!-- <option >Select Teacher</option> -->
+                                                        <option value='-1'>Select Teacher</option>
                                                        <?php foreach ($rows as $output) { ?>
                                                        <option value='<?php echo $output['id'] ?>' ><?php echo $output['teacher_name']; ?> </option>
                                                       <?php
