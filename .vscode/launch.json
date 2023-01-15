@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Testing",
+            "name": "9003 Debug",
             "type": "php",
             "request": "launch",
-            "port": 9090
+            "port": 9003
 
         },
         

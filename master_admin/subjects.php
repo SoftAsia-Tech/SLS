@@ -123,7 +123,12 @@ foreach ($rows as $row) {
                             PDO::ERRMODE_EXCEPTION
                         );
                         $stmt = $conn->prepare(
-                            "SELECT * FROM sls_subjects WHERE class_id=$class_subject_id"
+                            "SELECT sls_subjects.*, sls_teachers.teacher_name
+                            FROM sls_subjects
+                            LEFT JOIN sls_teachers
+                            ON sls_subjects.teacher_id = sls_teachers.id
+                            WHERE sls_subjects.class_id = $class_subject_id;
+                            "
                         );
                         $stmt->execute();
                         $rows = $stmt->fetchAll();
@@ -134,9 +139,9 @@ foreach ($rows as $row) {
                             // $result = mysqli_query($conn, $sql);
                             // while($row = mysqli_fetch_array($subject_query)){
                             $id = $row['id'];
-                        $teacher_details = "<button class='btn btn-warning'> Add Teacher </button>";
-                            if($row['teacher_id'] != 0){
-                              $teacher_details = $row['teacher_id'];
+                            $teacher_details = "<button class='btn btn-warning'> Add Teacher </button>";
+                            if(!is_null($row['teacher_name'])){
+                              $teacher_details = $row['teacher_name'];
                             }
                             // var_dump( $id);
 
