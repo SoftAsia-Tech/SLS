@@ -120,34 +120,29 @@ foreach ($rows as $row) {
                     <?php foreach ($rows as $row) {
                         $id = $row['id'];
                         $subject_name = $row['subject_name'];
-                        $teacher_details = "<form action='edit_subject.php' method='POST'>
-                            <button  type='submit' class='btn btn-warning' value='$id' name='edit_subject'>Add Teacher</button>
+                        $teacher_details = "<form class='form-inline mb-0'  action='edit_subject.php' method='POST'>
+                            <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_subject'>Add Teacher</button>
                           </form>";
                         if (!is_null($row['teacher_name'])) {
                             $teacher_details = $row['teacher_name'];
                         }
-                        echo " 
+                      echo " 
                             <tr> 
-                              <td>" .
-                            $row['subject_name'] .
-                            "</td>
-                             <td> 
-                              " .
-                            $teacher_details .
-                            "
+                              <td>$subject_name</td>
+                              <td>$teacher_details</td>
                               <td> 
-                                  <form action='chapters.php' method='POST'>
-                                    <input type='hidden' name='subject_name' value='$subject_name'>
-                                    <button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'>Chaptes</button>
-                                  </form>                                    
+                                <form class='d-inline-block mb-0' action='chapters.php' method='POST'>
+                                  <input type='hidden' name='subject_name' value='$subject_name'>
+                                  <button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'>Chaptes</button>
+                                </form>                                    
                               </td>
                               <td>
-                                   <form class='d-inline-block' action='delete_subject.php' method='POST'>       
-                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i></button>  
-                                  </form>
-                                  <form class='d-inline-block' action='edit_subject.php' method='POST'>
-                                    <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'><i class='bi bi-pencil-square'></i></button>
-                                  </form>
+                                <form class='d-inline-block mb-0' action='delete_subject.php' method='POST'>       
+                                  <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i></button>  
+                                </form>
+                                <form class='d-inline-block mb-0' action='edit_subject.php' method='POST'>
+                                  <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'><i class='bi bi-pencil-square'></i></button>
+                                </form>
                               </td>
                             </tr>
                         ";
