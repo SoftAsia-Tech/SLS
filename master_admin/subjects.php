@@ -142,10 +142,10 @@ foreach ($rows as $row) {
                                   </form>                                    
                                   </td><td>
                                    <form action='delete_subject.php' method='POST'>       
-                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i>Delete</button>  
+                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i></button>  
                                   </form>
                                   <form action='edit_subject.php' method='POST'>
-                                    <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'>Edit</button>
+                                    <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'><i class='bi bi-pencil-square'></i></button>
                                   </form>
 
                               </td>
