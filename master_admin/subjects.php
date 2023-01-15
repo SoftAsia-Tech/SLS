@@ -95,10 +95,7 @@ foreach ($rows as $row) {
             ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
-
-          <form action="add_subjects.php">
-            <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid; ?>"> Add Subjects</button>
-          </form>
+          <a href="add_subjects.php" class="btn btn-info" name="addnew_subject" value='"<?php $teacherid; ?>"'> Add Subjects</a>
 
           <!-- block -->
           <div id="block_bg" class="block">
@@ -123,8 +120,9 @@ foreach ($rows as $row) {
                     <?php foreach ($rows as $row) {
                         $id = $row['id'];
                         $subject_name = $row['subject_name'];
-                        $teacher_details =
-                            "<a class='btn btn-warning'> Add Teacher </a>";
+                        $teacher_details = "<form action='edit_subject.php' method='POST'>
+                            <button  type='submit' class='btn btn-warning' value='$id' name='edit_subject'>Add Teacher</button>
+                          </form>";
                         if (!is_null($row['teacher_name'])) {
                             $teacher_details = $row['teacher_name'];
                         }
@@ -135,9 +133,8 @@ foreach ($rows as $row) {
                             "</td>
                              <td> 
                               " .
-                            "<form action='' method='post'>" .
                             $teacher_details .
-                            "</form>                             
+                            "
                               <td> 
                                   <form action='chapters.php' method='POST'>
                                     <input type='hidden' name='subject_name' value='$subject_name'>
@@ -145,7 +142,7 @@ foreach ($rows as $row) {
                                   </form>                                    
                                   </td><td>
                                    <form action='delete_subject.php' method='POST'>       
-                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'>Delete</button>  
+                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i>Delete</button>  
                                   </form>
                                   <form action='edit_subject.php' method='POST'>
                                     <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'>Edit</button>
