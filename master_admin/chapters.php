@@ -64,7 +64,8 @@ if (isset($_SESSION['current_subject'])) {
                 <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
 
                   <!-- <a  id="delete_school" class="btn btn-danger" name="delete_school"><i class="icon-trash icon-large"></i>Delete</a> -->
-                  <?php // include('delete_modal.php'); 
+                  <?php 
+                    // include('delete_modal.php'); 
                   ?>
                   <thead>
                     <tr>
@@ -86,13 +87,7 @@ if (isset($_SESSION['current_subject'])) {
                       $stmt->execute();
                       $rows = $stmt->fetchAll();
                       foreach ($rows as $row) {
-                        // foreach($stmt as
-                        // $subject_query = mysqli_query($conn,"select * from subject")or die(mysqli_error());
-                        // $sql = "SELECT id, firstname, lastname FROM MyGuests";
-                        // $result = mysqli_query($conn, $sql);
-                        // while($row = mysqli_fetch_array($subject_query)){
                         $id = $row['id'];
-                        // var_dump( $id); 
                         echo " 
                                     <tr> 
                                         <td width=20%>" . $row['chapter_number'] . "</td>

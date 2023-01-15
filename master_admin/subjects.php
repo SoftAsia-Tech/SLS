@@ -30,10 +30,6 @@ foreach ($rows as $row) {
   <?php include '../includes/navbar.php'; ?>
   <div class="container-fluid">
     <div class="row-fluid">
-      <?php
-//include('subject_sidebar.php');
-?>
-
       <div class="span9" id="content">
         <?php
         if (isset($_SESSION['error'])) {
@@ -60,18 +56,49 @@ foreach ($rows as $row) {
               ";
             unset($_SESSION['success']);
         }
-        ?>
+        if (isset($class_subject_id)) {
+
+            $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
+            $sql = 'SELECT * FROM sls_teachers';
+            try {
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $teachers_rows = $stmt->fetchAll();
+            } catch (PDOException $e) {
+                $_SESSION['error'] = $e->getMessage();
+            }
+            $teachers_selection =
+                "<select name='teacher' class='custom-select'>";
+            $teachers_selection =
+                $teachers_selection .
+                "<option value='-1'>Select Teacher</option>";
+            foreach ($teachers_rows as $teacher_record) {
+                $teachers_selection =
+                    $teachers_selection .
+                    "<option value='" .
+                    $teacher_record['id'] .
+                    "'>" .
+                    $teacher_record['teacher_name'] .
+                    '</option>';
+            }
+            $teachers_selection = $teachers_selection . '</select>';
+            $stmt = $conn->prepare(
+                "SELECT sls_subjects.*, sls_teachers.teacher_name
+              FROM sls_subjects
+              LEFT JOIN sls_teachers
+              ON sls_subjects.teacher_id = sls_teachers.id
+              WHERE sls_subjects.class_id = $class_subject_id;
+              "
+            );
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
+            ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
 
           <form action="add_subjects.php">
             <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid; ?>"> Add Subjects</button>
           </form>
-
-          <a href="add_subjects.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i>Add Subjects</a>
-          <!-- <form action="add_subjects.php">
-            <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid ?>"> Add Subjects</button>
-          </form> -->
 
           <!-- block -->
           <div id="block_bg" class="block">
@@ -82,122 +109,54 @@ foreach ($rows as $row) {
             <div class="block-content /*collapse in*/">
               <div class="span12">
                 <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-
-                  <!-- <a  id="delete_school" class="btn btn-danger" name="delete_school"><i class="icon-trash icon-large"></i>Delete</a> -->
-                  <?php
-// include('delete_modal.php');
-?>
                   <thead>
                     <tr>
 
                       <th>Subject Name</th>
                       <!-- <th>Email</th> -->
-                      <th width=30%>Action</th>
+                      <th width=30%>Teacher</th>
+                      <th>Chapters</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-
-
-                    <?php if (isset($class_subject_id)) {
-                        $conn = new PDO(
-                            'mysql:host=localhost;dbname=sls',
-                            'root',
-                            ''
-                        );
-                        $sql = 'SELECT * FROM sls_teachers';
-                        try {
-                            $stmt = $conn->prepare($sql);
-                            $stmt->execute();
-                            $teachers_rows = $stmt->fetchAll();
-                        } catch (PDOException $e) {
-                            $_SESSION['error'] = $e->getMessage();
+                    <?php foreach ($rows as $row) {
+                        $id = $row['id'];
+                        $subject_name = $row['subject_name'];
+                        $teacher_details =
+                            "<a class='btn btn-warning'> Add Teacher </a>";
+                        if (!is_null($row['teacher_name'])) {
+                            $teacher_details = $row['teacher_name'];
                         }
-                        $teachers_selection ="<select name='teacher' class='custom-select'>";
-                        $teachers_selection =$teachers_selection ."<option value='-1'>Select Teacher</option>";
-
-                        foreach ($teachers_rows as $teacher_record) {
-                            $teachers_selection =
-                                $teachers_selection .
-                                "<option value='" .
-                                $teacher_record['id'] .
-                                "'>" .
-                                $teacher_record['teacher_name'] .
-                                '</option>';
-                        }
-                        $teachers_selection = $teachers_selection . '</select>';
-                        $conn->setAttribute(
-                            PDO::ATTR_ERRMODE,
-                            PDO::ERRMODE_EXCEPTION
-                        );
-                        $stmt = $conn->prepare(
-                            "SELECT sls_subjects.*, sls_teachers.teacher_name
-                            FROM sls_subjects
-                            LEFT JOIN sls_teachers
-                            ON sls_subjects.teacher_id = sls_teachers.id
-                            WHERE sls_subjects.class_id = $class_subject_id;
-                            "
-                        );
-                        $stmt->execute();
-                        $rows = $stmt->fetchAll();
-                        foreach ($rows as $row) {
-                            // foreach($stmt as
-                            // $subject_query = mysqli_query($conn,"select * from subject")or die(mysqli_error());
-                            // $sql = "SELECT id, firstname, lastname FROM MyGuests";
-                            // $result = mysqli_query($conn, $sql);
-                            // while($row = mysqli_fetch_array($subject_query)){
-                            $id = $row['id'];
-                            $teacher_details = "<button class='btn btn-warning'> Add Teacher </button>";
-                            if(!is_null($row['teacher_name'])){
-                              $teacher_details = $row['teacher_name'];
-                            }
-                            // var_dump( $id);
-
-                            echo " 
+                        echo " 
                             <tr> 
                               <td>" .
-                                $row['subject_name'] .
-                                "</td>
-                              
-
-                              <td> 
+                            $row['subject_name'] .
+                            "</td>
+                             <td> 
                               " .
-                                "
-                              <form action='' method='post'>" .
-                                $teacher_details .
-                                "</form>                             
-
-                              <td width=30%> 
-                              
-                                                           
-
+                            "<form action='' method='post'>" .
+                            $teacher_details .
+                            "</form>                             
+                              <td> 
                                   <form action='chapters.php' method='POST'>
-                                    <input type='hidden' name='subject_name' value=" .
-                                $row['subject_name'] .
-                                ">
-                                    <button  type='submit' class='btn btn-primary' value=" .
-                                $row['id'] .
-                                " name='details_subject_btn'>Chaptes</button>
-                                  </form> 
-                                   
+                                    <input type='hidden' name='subject_name' value='$subject_name'>
+                                    <button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'>Chaptes</button>
+                                  </form>                                    
+                                  </td><td>
                                    <form action='delete_subject.php' method='POST'>       
-                                    <button  type='submit' class='btn btn-danger' value=" .
-                                $row['id'] .
-                                " name='delete_subject'>Delete</button>  
+                                    <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'>Delete</button>  
                                   </form>
                                   <form action='edit_subject.php' method='POST'>
-                                    <button  type='submit' class='btn btn-success' value=" .
-                                $row['id'] .
-                                " name='edit_subject'>Edit</button>  
+                                    <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'>Edit</button>
                                   </form>
-                                  <!--<a href='edit_school.php?=" .
-                                $row['id'] .
-                                "' class='btn btn-success'> Edit</a>-->
+
                               </td>
                             </tr>
                         ";
-
-                        }
-                    } ?>
+                    }
+        }
+        ?>
     <?php
     $sql = 'SELECT * FROM sls_teachers';
     try {
@@ -208,22 +167,6 @@ foreach ($rows as $row) {
         $_SESSION['error'] = $e->getMessage();
     }
     ?>
-    <form action='' method='post'>
-    <select name='courseName' class='custom-select'>
-        <option value=''>Select Course</option>
-        <?php foreach ($rows as $output) { ?>
-        <option value='<?php
-            //echo $id;
-            ?>' ><?php echo $output['teacher_name']; ?> </option>
-       <?php } ?>
-    </select>
-    <!-- <input type="submit" name="submit"> -->
-    </form>
-
-                      }
-                    }
-                    ?>
-
                   </tbody>
 
                 </table>
