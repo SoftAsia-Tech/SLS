@@ -3,6 +3,7 @@ include('../includes/database_conn.php');
 	if ($_POST['update_btn']) {
 		$c_name = $_POST['c_name'];
 		$c_section = $_POST['c_section'];
+		$teacher_ID = $_POST['teacher_ID'];
 		// $password = $_POST['password'];
 		// $firstname = $row['firstname'];
 		// $email = $row['email'];
@@ -11,7 +12,7 @@ include('../includes/database_conn.php');
 		$id = $_POST['update_btn'];
 		$conn = $pdo->open();
 		try {
-		$stmt = $conn->prepare("UPDATE sls_classes SET c_name='$c_name', c_section='$c_section' WHERE id=$id");
+		$stmt = $conn->prepare("UPDATE sls_classes SET c_name='$c_name', teacher_id='$teacher_ID', c_section='$c_section' WHERE id=$id");
 		$stmt->execute();
 
 		} catch (PDOException $e) {

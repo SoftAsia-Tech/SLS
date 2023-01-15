@@ -91,6 +91,7 @@ if (isset($_SESSION['current_school'])) {
                                                     <td>" . $row['teacher_name'] . "</td>
                                                     
                                                     <td> 
+                                                    
                                                         <!--<form action='subjects.php' method='POST'>
                                                             <input type='hidden' name='class_name' value=''>
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn'>Subjects</button>

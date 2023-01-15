@@ -10,7 +10,8 @@
 						<div class="span9" id="content">
 		                    
 		                        <!-- block -->
-		                        <div class="block">
+		                        
+								<div class="block">
 		                            <div class="navbar navbar-inner block-header">
 		                                <!-- <div class="muted pull-left">Add School</div> -->
                                         

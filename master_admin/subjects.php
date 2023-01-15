@@ -63,9 +63,16 @@ foreach ($rows as $row) {
         ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
+
           <form action="add_subjects.php">
             <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid; ?>"> Add Subjects</button>
           </form>
+
+          <a href="add_subjects.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i>Add Subjects</a>
+          <!-- <form action="add_subjects.php">
+            <button class="btn btn-info" name="addnew_subject" value="<?php $teacherid ?>"> Add Subjects</button>
+          </form> -->
+
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
@@ -85,7 +92,7 @@ foreach ($rows as $row) {
 
                       <th>Subject Name</th>
                       <!-- <th>Email</th> -->
-                      <th>Action</th>
+                      <th width=30%>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -151,12 +158,18 @@ foreach ($rows as $row) {
                                 $row['subject_name'] .
                                 "</td>
                               
+
                               <td> 
                               " .
                                 "
                               <form action='' method='post'>" .
                                 $teacher_details .
                                 "</form>                             
+
+                              <td width=30%> 
+                              
+                                                           
+
                                   <form action='chapters.php' method='POST'>
                                     <input type='hidden' name='subject_name' value=" .
                                 $row['subject_name'] .
@@ -182,6 +195,7 @@ foreach ($rows as $row) {
                               </td>
                             </tr>
                         ";
+
                         }
                     } ?>
     <?php
@@ -205,6 +219,11 @@ foreach ($rows as $row) {
     </select>
     <!-- <input type="submit" name="submit"> -->
     </form>
+
+                      }
+                    }
+                    ?>
+
                   </tbody>
 
                 </table>
