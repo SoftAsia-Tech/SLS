@@ -140,14 +140,14 @@ foreach ($rows as $row) {
                                     <input type='hidden' name='subject_name' value='$subject_name'>
                                     <button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'>Chaptes</button>
                                   </form>                                    
-                                  </td><td>
-                                   <form action='delete_subject.php' method='POST'>       
+                              </td>
+                              <td>
+                                   <form class='d-inline-block' action='delete_subject.php' method='POST'>       
                                     <button  type='submit' class='btn btn-danger' value='$id' name='delete_subject'> <i class='bi bi-trash'></i></button>  
                                   </form>
-                                  <form action='edit_subject.php' method='POST'>
+                                  <form class='d-inline-block' action='edit_subject.php' method='POST'>
                                     <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'><i class='bi bi-pencil-square'></i></button>
                                   </form>
-
                               </td>
                             </tr>
                         ";
