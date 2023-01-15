@@ -83,13 +83,23 @@ foreach ($rows as $row) {
             }
             $teachers_selection = $teachers_selection . '</select>';
             $stmt = $conn->prepare(
-                "SELECT sls_subjects.*, sls_teachers.teacher_name
-              FROM sls_subjects
-              LEFT JOIN sls_teachers
-              ON sls_subjects.teacher_id = sls_teachers.id
-              WHERE sls_subjects.class_id = $class_subject_id;
-              "
+                  "SELECT sls_subjects.*, sls_teachers.teacher_name, COUNT(sls_chapters.id) as total_chapters
+                  FROM sls_subjects
+                  LEFT JOIN sls_teachers
+                  ON sls_subjects.teacher_id = sls_teachers.id
+                  LEFT JOIN sls_chapters
+                  ON sls_subjects.id = sls_chapters.subject_id
+                  WHERE sls_subjects.class_id = $class_subject_id
+                  GROUP BY sls_subjects.id;
+                  "
             );
+          $old_query = "SELECT sls_subjects.*, sls_teachers.teacher_name
+            FROM sls_subjects
+            LEFT JOIN sls_teachers
+            ON sls_subjects.teacher_id = sls_teachers.id
+            WHERE sls_subjects.class_id = $class_subject_id;
+            ";
+
             $stmt->execute();
             $rows = $stmt->fetchAll();
             ?>
@@ -120,6 +130,15 @@ foreach ($rows as $row) {
                     <?php foreach ($rows as $row) {
                         $id = $row['id'];
                         $subject_name = $row['subject_name'];
+                        $total_chapters = $row['total_chapters'];
+                        if($total_chapters == 0){
+                          $total_chapters = "<span class='btn btn-danger px-1 py-0'>0</span> Chapter &nbsp";
+                          $total_chapters_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_subject_btn'> $total_chapters</button>";
+                        }
+                        else{
+                          $total_chapters = "<span class='btn btn-success px-1 py-0'>$total_chapters </span>  Chapters";
+                          $total_chapters_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'> $total_chapters</button>";
+                        }
                         $teacher_details = "<form class='form-inline mb-0'  action='edit_subject.php' method='POST'>
                             <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_subject'>Add Teacher</button>
                           </form>";
@@ -132,8 +151,8 @@ foreach ($rows as $row) {
                               <td>$teacher_details</td>
                               <td> 
                                 <form class='d-inline-block mb-0' action='chapters.php' method='POST'>
-                                  <input type='hidden' name='subject_name' value='$subject_name'>
-                                  <button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'>Chaptes</button>
+                                  <input type='hidden' name='subject_name' value='$subject_name'>                                  
+                                  $total_chapters_text
                                 </form>                                    
                               </td>
                               <td>
