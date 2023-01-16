@@ -132,11 +132,11 @@ foreach ($rows as $row) {
                         $subject_name = $row['subject_name'];
                         $total_chapters = $row['total_chapters'];
                         if($total_chapters == 0){
-                          $total_chapters = "<span class='btn btn-danger px-1 py-0'>0</span> Chapter &nbsp";
+                          $total_chapters = "<span class='badge bg-danger text-white ms-2'>0</span> Chapter &nbsp";
                           $total_chapters_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_subject_btn'> $total_chapters</button>";
                         }
                         else{
-                          $total_chapters = "<span class='btn btn-success px-1 py-0'>$total_chapters </span>  Chapters";
+                          $total_chapters = "<span class='badge bg-success text-white ms-2'>$total_chapters </span>  Chapters";
                           $total_chapters_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_subject_btn'> $total_chapters</button>";
                         }
                         $teacher_details = "<form class='form-inline mb-0'  action='edit_subject.php' method='POST'>
@@ -162,6 +162,7 @@ foreach ($rows as $row) {
                                 <form class='d-inline-block mb-0' action='edit_subject.php' method='POST'>
                                   <button  type='submit' class='btn btn-success' value='$id' name='edit_subject'><i class='bi bi-pencil-square'></i></button>
                                 </form>
+                                
                               </td>
                             </tr>
                         ";
