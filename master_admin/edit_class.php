@@ -16,9 +16,9 @@
                                         
 		                            </div>
 									<?php
-										if ($_POST['edit_school']) {
+										if ($_POST['edit_class']) {
 											
-											$id = $_POST['edit_school'];
+											$id = $_POST['edit_class'];
 											$conn = $pdo->open();
 
 											$sql = 'SELECT * FROM sls_teachers';

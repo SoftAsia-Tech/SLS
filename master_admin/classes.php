@@ -12,6 +12,17 @@ if (isset($_SESSION['current_school'])) {
     $school_class_id = $_SESSION['current_school'];
     $school_name = $_SESSION['school_name'];
 }
+$conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt = $conn->prepare('SELECT * FROM sls_teachers');
+$stmt->execute();
+$rows = $stmt->fetchAll();
+foreach ($rows as $row) {
+    $teacherid = $row['id'];
+    $_SESSION['teacherid'] = $row['id'];
+    $teachername = $row['teacher_name'];
+    $_SESSION['teacher_name'] = $row['teacher_name'];
+}
 ?>
 
 <body>
@@ -50,6 +61,51 @@ if (isset($_SESSION['current_school'])) {
               ";
                     unset($_SESSION['success']);
                 }
+                if (isset($school_class_id)) {
+                    $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
+                    $sql = 'SELECT * FROM sls_teachers';
+                    try {
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $teachers_rows = $stmt->fetchAll();
+                    } catch (PDOException $e) {
+                        $_SESSION['error'] = $e->getMessage();
+                    }
+                    $teachers_selection =
+                        "<select name='teacher' class='custom-select'>";
+                    $teachers_selection =
+                        $teachers_selection .
+                        "<option value='-1'>Select Teacher</option>";
+                    foreach ($teachers_rows as $teacher_record) {
+                        $teachers_selection =
+                            $teachers_selection .
+                            "<option value='" .
+                            $teacher_record['id'] .
+                            "'>" .
+                            $teacher_record['teacher_name'] .
+                            '</option>';
+                    }
+                    $teachers_selection = $teachers_selection . '</select>';
+                    $stmt = $conn->prepare(
+                        "SELECT sls_classes.*, sls_teachers.teacher_name, COUNT(sls_subjects.id) as total_subjects
+                        FROM sls_classes
+                        LEFT JOIN sls_teachers
+                        ON sls_classes.teacher_id = sls_teachers.id
+                        LEFT JOIN sls_subjects
+                        ON sls_classes.id = sls_subjects.class_id
+                        WHERE sls_classes.school_id = $school_class_id
+                        GROUP BY sls_classes.id;
+                        "
+                    );
+                    $old_query = "SELECT sls_classes.*, sls_teachers.teacher_name
+                    FROM sls_classes
+                    LEFT JOIN sls_teachers
+                    ON sls_classes.teacher_id = sls_teachers.id
+                    WHERE sls_classes.school_id = $school_class_id;
+                    ";
+
+                    $stmt->execute();
+                    $rows = $stmt->fetchAll();
                 ?>
                 <div class="row-fluid"><br>
                     <a href="schools.php" value="" class="btn btn-info"> Back to Schools</a>
@@ -66,7 +122,9 @@ if (isset($_SESSION['current_school'])) {
                                     <thead>
                                         <tr>
                                             <th>Class Name</th>
-                                            <th>Section</th>
+                                            <th>Teacher Detail</th>
+                                            <th>Subjects</th>
+                                            <th>Students</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -74,40 +132,55 @@ if (isset($_SESSION['current_school'])) {
 
                                         <?php
 
-                                        if (isset($school_class_id)) {
-                                            $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                            $stmt = $conn->prepare("SELECT * FROM sls_classes WHERE school_id=$school_class_id");
-                                            $stmt->execute();
-                                            $rows = $stmt->fetchAll();
+                                        // if (isset($school_class_id)) {
+                                        //     $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
+                                        //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        //     $stmt = $conn->prepare("SELECT * FROM sls_classes WHERE school_id=$school_class_id");
+                                        //     $stmt->execute();
+                                        //     $rows = $stmt->fetchAll();
                                             foreach ($rows as $row) {
-
                                                 $id = $row['id'];
-
+                                                $class_name = $row['c_name'];
+                                                $total_subjects = $row['total_subjects'];
+                                                if($total_subjects == 0){
+                                                    $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
+                                                    $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn'> $total_subjects</button>";
+                                                  }
+                                                  else{
+                                                    $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
+                                                    $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn'> $total_subjects</button>";
+                                                  }
+                                                  $teacher_details = "<form class='form-inline mb-0'  action='edit_class.php' method='POST'>
+                                                      <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_class'>Add Teacher</button>
+                                                    </form>";
+                                                  if (!is_null($row['teacher_name'])) {
+                                                      $teacher_details = $row['teacher_name'];
+                                                  }
                                                 echo " 
                                             <tr> 
-                                                    <td>" . $row['c_name'] . "</td>
-                                                    <td>" . $row['c_section'] . "</td>
-                                                    <td width='30'>
+                                                    <td>$class_name</td>
+                                                    <td>$teacher_details</td>
+                                                    <td>
+                                                    <form class='d-inline-block mb-0' action='subjects.php' method='POST'>
+                                                        <input type='hidden' name='c_name' value='$class_name'>                                  
+                                                        $total_subjects_text
+                                                    </form>
                                                     </td>
+                                                    
                                                     <td> 
-                                                        <form action='subjects.php' method='POST'>
-                                                        
-                                                            <input type='hidden' name='class_name' value=" . $row['c_name'] . ">
-                                                            <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn'>Subjects</button>
-                                                        </form>
-                                                        <form action='students.php' method='POST'>
+                                                        <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                                             <input type='hidden' name='class_name1' value=" . $row['c_name'] . ">
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn1'>Students</button>
-                                                        </form>
-                                                         <form action='delete_class.php' method='POST'>       
-                                                            <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_class'>Delete</button>  
-                                                        </form>
+                                                        </form> 
+                                                    </td>
+                                                    <td>
+                                                    <form class='d-inline-block mb-0' action='delete_class.php' method='POST'>       
+                                                        <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_class'><i class='bi bi-trash'></i></button>  
+                                                    </form>
 
-                                                        <form action='edit_class.php' method='POST'>
-                                                            <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_school'>Edit</button>  
-                                                        </form>
-                                                        
+                                                    <form class='d-inline-block mb-0' action='edit_class.php' method='POST'>
+                                                        <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_class'><i class='bi bi-pencil-square'></i></button>  
+                                                    </form>
                                                     </td>
                                             </tr>
                                         ";
