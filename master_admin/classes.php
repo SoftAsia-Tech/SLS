@@ -161,6 +161,7 @@ foreach ($rows as $row) {
                                                     $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
                                                     $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn'> $total_subjects</button>";
                                                   }
+
                                                 if($total_students == 0){
                                                     $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
                                                     $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn1'> $total_students</button>";
@@ -184,18 +185,13 @@ foreach ($rows as $row) {
                                                         <input type='hidden' name='c_name' value='$class_name'>                                  
                                                         $total_subjects_text
                                                     </form>
+                                                    </td>
+                                                    <td>
                                                     <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                                         <input type='hidden' name='c_name' value='$class_name'>                                  
                                                         $total_students_text
                                                     </form>
-                                                    </td>
-                                                    
-                                                    <!--<td> 
-                                                        <form class='d-inline-block mb-0' action='students.php' method='POST'>
-                                                            <input type='hidden' name='class_name1' value=" . $row['c_name'] . ">
-                                                            <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn1'>Students</button>
-                                                        </form> 
-                                                    </td>-->
+                                                    </td>                                                    
                                                     <td>
                                                     <form class='d-inline-block mb-0' action='delete_class.php' method='POST'>       
                                                         <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_class'><i class='bi bi-trash'></i></button>  
