@@ -87,16 +87,25 @@ foreach ($rows as $row) {
                     }
                     $teachers_selection = $teachers_selection . '</select>';
                     $stmt = $conn->prepare(
-                        "SELECT sls_classes.*, sls_teachers.teacher_name, COUNT(sls_subjects.id) as total_subjects
+                        "SELECT sls_classes.*, sls_teachers.teacher_name, 
+                        (SELECT COUNT(id) FROM sls_subjects WHERE sls_subjects.class_id = sls_classes.id) AS total_subjects, 
+                        (SELECT COUNT(id) FROM sls_students WHERE sls_students.classID = sls_classes.id) AS total_students
                         FROM sls_classes
                         LEFT JOIN sls_teachers
                         ON sls_classes.teacher_id = sls_teachers.id
-                        LEFT JOIN sls_subjects
-                        ON sls_classes.id = sls_subjects.class_id
                         WHERE sls_classes.school_id = $school_class_id
                         GROUP BY sls_classes.id;
                         "
                     );
+                    // $std_query = (
+                    //     "SELECT sls_classes.*, COUNT(sls_students.id) AS total_students
+                    //     FROM sls_classes
+                    //     LEFT JOIN sls_students
+                    //     ON sls_classes.id = sls_students.classID
+                    //     WHERE sls_classes.school_id = $school_class_id
+                    //     GROUP BY sls_classes.id
+                    //     "
+                    // );
                     $old_query = "SELECT sls_classes.*, sls_teachers.teacher_name
                     FROM sls_classes
                     LEFT JOIN sls_teachers
@@ -142,6 +151,8 @@ foreach ($rows as $row) {
                                                 $id = $row['id'];
                                                 $class_name = $row['c_name'];
                                                 $total_subjects = $row['total_subjects'];
+                                                $total_students = $row['total_students'];
+                                                
                                                 if($total_subjects == 0){
                                                     $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
                                                     $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn'> $total_subjects</button>";
@@ -149,6 +160,14 @@ foreach ($rows as $row) {
                                                   else{
                                                     $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
                                                     $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn'> $total_subjects</button>";
+                                                  }
+                                                if($total_students == 0){
+                                                    $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
+                                                    $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn1'> $total_students</button>";
+                                                  }
+                                                  else{
+                                                    $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>  Students";
+                                                    $total_students_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn1'> $total_students</button>";
                                                   }
                                                   $teacher_details = "<form class='form-inline mb-0'  action='edit_class.php' method='POST'>
                                                       <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_class'>Add Teacher</button>
@@ -165,14 +184,18 @@ foreach ($rows as $row) {
                                                         <input type='hidden' name='c_name' value='$class_name'>                                  
                                                         $total_subjects_text
                                                     </form>
+                                                    <form class='d-inline-block mb-0' action='students.php' method='POST'>
+                                                        <input type='hidden' name='c_name' value='$class_name'>                                  
+                                                        $total_students_text
+                                                    </form>
                                                     </td>
                                                     
-                                                    <td> 
+                                                    <!--<td> 
                                                         <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                                             <input type='hidden' name='class_name1' value=" . $row['c_name'] . ">
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn1'>Students</button>
                                                         </form> 
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                     <form class='d-inline-block mb-0' action='delete_class.php' method='POST'>       
                                                         <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_class'><i class='bi bi-trash'></i></button>  

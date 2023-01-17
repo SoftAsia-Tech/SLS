@@ -1,6 +1,21 @@
 {
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000
+        },
+
+        
+        {
+            "name": "Testing",
+            "type": "php",
+            "request": "launch",
+            "port": 9000
+
+        },
 
         {
             "name": "9003 Debug",
@@ -16,13 +31,7 @@
             "type": "php",
             "request": "launch",
             "port": 9000
-        },
-        {
-            "name": "Testing",
-            "type": "php",
-            "request": "launch",
-            "port": 9003
-
         }
+        
     ]
 }

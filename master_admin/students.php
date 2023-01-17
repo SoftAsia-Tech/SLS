@@ -5,14 +5,14 @@ if (isset($_POST['details_class_btn1'])) {
 
   $class_student_id = $_POST['details_class_btn1'];
   $_SESSION['current_class'] = $_POST['details_class_btn1'];
-  $_SESSION['class_name1'] = $_POST['class_name1'];
+  $_SESSION['c_name'] = $_POST['c_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name1 = $_POST['class_name1'];
+  $class_name1 = $_POST['c_name'];
   
 }
 if (isset($_SESSION['current_class'])) {
   $class_student_id = $_SESSION['current_class'];
-  $class_name1 = $_SESSION['class_name1'];
+  $class_name1 = $_SESSION['c_name'];
   $school_name = $_SESSION['school_name'];
 }
 

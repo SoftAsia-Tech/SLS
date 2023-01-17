@@ -4,13 +4,13 @@
 if (isset($_POST['details_class_btn'])) {
     $class_subject_id = $_POST['details_class_btn'];
     $_SESSION['current_class'] = $_POST['details_class_btn'];
-    $_SESSION['class_name'] = $_POST['class_name'];
+    $_SESSION['c_name'] = $_POST['c_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_POST['class_name'];
+    $class_name = $_POST['c_name'];
 }
 if (isset($_SESSION['current_class'])) {
     $class_subject_id = $_SESSION['current_class'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     $school_name = $_SESSION['school_name'];
 }
 $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
