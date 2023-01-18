@@ -49,6 +49,24 @@ if (isset($_SESSION['current_student'])) {
               ";
           unset($_SESSION['success']);
         }
+        if (isset($studentID)) {
+          $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $stmt = $conn->prepare(
+            "SELECT sls_students.*, sls_chapters.id AS chapterID, sls_chapters.chapter_name, sls_subjects.id 
+            AS subjectID, sls_subjects.subject_name,
+            (SELECT COUNT(id) FROM sls_subjects WHERE sls_subjects.class_id = sls_students.classID) AS total_subjects 
+            FROM sls_students 
+            INNER JOIN sls_subjects 
+            ON sls_students.classID = sls_subjects.class_id
+            INNER JOIN sls_chapters
+            ON sls_chapters.subject_id = sls_subjects.id
+            WHERE sls_students.id=$studentID
+            GROUP BY sls_students.id
+              
+              ");
+          $stmt->execute();
+          $rows = $stmt->fetchAll();
         ?>
         <div class="row-fluid"><br>
           <a href="students.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Students</a>
@@ -66,43 +84,46 @@ if (isset($_SESSION['current_student'])) {
                   <!-- <a  id="delete_school" class="btn btn-danger" name="delete_school"><i class="icon-trash icon-large"></i>Delete</a> -->
                   <?php // include('delete_modal.php'); 
                   ?>
-                  <!-- <thead>
+                  <thead>
                     <tr>
-                      <th width=20%>Student Name</th>
-                      <th></th>
-                       <th>Email</th>
-                      <th>Action</th>
+                      <th>Subject Name</th>
+                      
+                       <th>Chapters</th>
                     </tr>
-                  </thead> -->
+                  </thead>
                   <tbody>
-                    <div>
-                        Subjects Name: 
-                    </div>
+                   
                     <?php
-                    if (isset($studentID)) {
-                      $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                      $stmt = $conn->prepare("SELECT sls_students.id AS studentID, sls_students.classID, sls_students.s_name, sls_students.s_email, sls_subjects.id AS subjectID, sls_subjects.class_id, sls_subjects.subject_name FROM sls_students INNER JOIN sls_subjects ON sls_students.classID = sls_subjects.class_id WHERE sls_students.id=$studentID");
-                      $stmt->execute();
-                      $rows = $stmt->fetchAll();
+                    
+                     
                       foreach ($rows as $row) {
-                        
-                        // $id = $row['id'];
-                         
+                        $id = $row['id'];
+                        $subjectName = $row['subject_name'];
+                        $chpaterName = $row['chapter_name'];
+                        $total_subjects = $row['total_subjects'];
+                        if($total_subjects == 0){
+                          $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Chapters &nbsp";
+                          $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_subjects</button>";
+                        }
+                        else{
+                          $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Chapters";
+                          $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_subjects</button>";
+                        }
                         echo " 
+                          <tr>
                              
-                            
+                            <td>$subjectName</td>
 
-                            <div>
-                                ".$row['subject_name']." 
-                                <form action='student_chapter.php' method='POST'>
-                                    <input type='hidden' name='sbjName' value=" .$row['subject_name']. "> 
-                                    <input type='hidden' name='stdID' value=" .$row['studentID']. "> 
-                                    <button  type='submit' class='btn btn-primary' value=" . $row['subjectID'] . " name='std_profile_chapter_btn'>Chapters</button>
-                                </form>
-                            </div>
+                            <td>
+                              <form class='d-inline-block mb-0' action='student_chapter.php' method='POST'>
+                                <input type='hidden' name='sbjName' value='$subjectName'> 
+                                <input type='hidden' name='stdID' value=" .$row['id']. ">                                 
+                                $total_subjects_text
+                              </form>
+                            </td>
+                           
                                  
-                                        
+                          </tr>           
                                         
                                     
                         ";

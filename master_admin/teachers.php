@@ -100,12 +100,12 @@ if (isset($_SESSION['current_school'])) {
                                                             <input type='hidden' name='class_name1' value=''>
                                                             <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='details_class_btn1'>Students</button>
                                                         </form>-->
-                                                         <form action='delete_teacher.php' method='POST'>       
-                                                            <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_teacher'>Delete</button>  
+                                                         <form class='d-inline-block mb-0' action='delete_teacher.php' method='POST'>       
+                                                            <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_teacher'><i class='bi bi-trash'></i></button>  
                                                         </form>
 
-                                                        <form action='edit_teacher.php' method='POST'>
-                                                            <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_teacher'>Edit</button>  
+                                                        <form class='d-inline-block mb-0' action='edit_teacher.php' method='POST'>
+                                                            <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_teacher'><i class='bi bi-pencil-square'></i></button>  
                                                         </form>
                                                         
                                                     </td>

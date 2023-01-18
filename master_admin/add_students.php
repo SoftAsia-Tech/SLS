@@ -11,6 +11,7 @@
 							<?php
                                 if(isset($_POST['save'])){
                                     $class_id = $_SESSION['current_class'];
+                                    $school_class_id = $_SESSION['current_school'];
                                     $s_name = $_POST['student_name'];
                                     $s_email = $_POST['student_email'];
                                     // $school_id = $_POST['school_id'];
@@ -20,8 +21,8 @@
                                     
                                     try{
                                         
-		                                $stmt = $conn->prepare("INSERT INTO sls_students (classID, s_name, s_email) VALUES (:classID, :s_name, :s_email)");
-                                        $stmt->execute(['classID'=>$class_id, 's_name'=>$s_name, 's_email'=>$s_email]);
+		                                $stmt = $conn->prepare("INSERT INTO sls_students (classID, schoolID, s_name, s_email) VALUES (:classID, :schoolID, :s_name, :s_email)");
+                                        $stmt->execute(['classID'=>$class_id, 'schoolID'=>$school_class_id, 's_name'=>$s_name, 's_email'=>$s_email]);
                                         // $_SESSION['success'] = 'Product added successfully';
                                     
                                     }
@@ -49,6 +50,7 @@
 									    <form action='' class="form-horizontal" method="post">
                                             <div class="control-group">
                                                 <input type="hidden" name="classID" class="form-control form-control-lg"/>
+                                                <input type="hidden" name="schoolID" class="form-control form-control-lg"/>
                                                 <label class="control-label" >Student Name</label>
                                                 <input type="text" name="student_name" value=""  class="form-control" required >
                                                 <label class="control-label">Email</label>
