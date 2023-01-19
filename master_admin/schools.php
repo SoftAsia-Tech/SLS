@@ -56,16 +56,16 @@
               }
               $teachers_selection = $teachers_selection . '</select>';
               $stmt = $conn->prepare(
-                    "SELECT sls_schools.*, sls_teachers.id AS TeacherId, sls_teachers.teacher_name, sls_classes.id 
-                    AS ClassId,  sls_classes.c_name, sls_students.id AS StudentID, sls_students.s_name, 
-                    COUNT(DISTINCT CASE WHEN sls_teachers.id IS NOT NULL THEN sls_teachers.id END) AS total_teachers, 
-                    COUNT(sls_students.id) AS total_students, 
-                    COUNT(sls_classes.id) AS total_classes 
-                    FROM sls_schools LEFT JOIN sls_teachers ON sls_schools.id = sls_teachers.school_id 
-                    LEFT JOIN sls_classes ON sls_classes.teacher_id = sls_teachers.id LEFT JOIN sls_students 
-                    ON sls_students.classID = sls_classes.id  GROUP BY sls_schools.id
-                    "
-              );
+                    "SELECT sls_schools.id, sls_schools.firstname, 
+                    (SELECT COUNT(DISTINCT id) FROM sls_teachers WHERE sls_teachers.school_id = sls_schools.id) AS total_teachers, 
+                    (SELECT COUNT(sls_students.id) FROM sls_students WHERE sls_students.schoolID = sls_schools.id) AS total_students, 
+                    (SELECT COUNT(sls_classes.id) FROM sls_classes WHERE sls_classes.school_id = sls_schools.id) AS total_classes 
+                    FROM sls_schools GROUP BY sls_schools.id, sls_schools.firstname
+                    ");
+                    
+                  
+           
+              
             // $old_query = "SELECT sls_subjects.*, sls_teachers.teacher_name
             //   FROM sls_subjects
             //   LEFT JOIN sls_teachers
@@ -109,10 +109,10 @@
                     // $rows = $stmt-> fetchAll();
                     foreach($rows as $row){
                       $id = $row['id'];
-                      $class_name = $row['c_name'];
+                      // $class_name = $row['c_name'];
                       $schoolName = $row['firstname'];
-                      $studentName = $row['s_name'];
-                      $teacherName = $row['teacher_name'];
+                      // $studentName = $row['s_name'];
+                      // $teacherName = $row['teacher_name'];
                       $total_classes = $row['total_classes'];
                       $total_students = $row['total_students'];
                       $total_teachers = $row['total_teachers'];
@@ -136,37 +136,37 @@
                       } 
                     if($total_teachers == 0){
                         $total_teachers = "<span class='badge bg-danger text-white ms-2'>0</span> Teachers &nbsp";
-                        $total_teachers_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn1'> $total_teachers</button>";
+                        $total_teachers_text = "<button  type='submit' class='btn btn-warning' value='$id' name='school_teachers_btn'> $total_teachers</button>";
                       }
                       else{
                         $total_teachers = "<span class='badge bg-success text-white ms-2'>$total_teachers </span>  Teachers";
-                        $total_teachers_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn1'> $total_teachers</button>";
+                        $total_teachers_text = "<button  type='submit' class='btn btn-primary' value='$id' name='school_teachers_btn'> $total_teachers</button>";
                       } 
-                      $teacher_details = "<form class='form-inline mb-0'  action='edit_school.php' method='POST'>
-                          <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_school'>Add Teacher</button>
-                        </form>";
-                      if (!is_null($row['teacher_name'])) {
-                          $teacher_details = $row['teacher_name'];
-                      }
+                      // $teacher_details = "<form class='form-inline mb-0'  action='edit_school.php' method='POST'>
+                      //     <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_school'>Add Teacher</button>
+                      //   </form>";
+                      // if (!is_null($row['teacher_name'])) {
+                      //     $teacher_details = $row['teacher_name'];
+                      // }
 
                         echo " 
                             <tr> 
                               <td>$schoolName</td>
                               <td>
                               <form class='d-inline-block mb-0' action='classes.php' method='POST'>
-                                <input type='hidden' name='c_name' value='$schoolName'>                                  
+                                <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_classes_text
                               </form>
                               </td>
                               <td>
                               <form class='d-inline-block mb-0' action='teachers.php' method='POST'>
-                                <input type='hidden' name='c_name' value='$teacherName'>                                  
+                                <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_teachers_text
                               </form>
                               </td>
                               <td>
                               <form class='d-inline-block mb-0' action='students.php' method='POST'>
-                                <input type='hidden' name='c_name' value='$studentName'>                                  
+                                <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_students_text
                               </form>
                               </td>

@@ -4,12 +4,18 @@
 if (isset($_POST['details_class_btn1'])) {
 
   $class_student_id = $_POST['details_class_btn1'];
-  $_SESSION['current_class'] = $_POST['details_class_btn1'];
-  $_SESSION['c_name'] = $_POST['c_name'];
-  $school_name = $_SESSION['school_name'];
-  $class_name1 = $_POST['c_name'];
+  $_SESSION['current_school'] = $_POST['details_class_btn1'];
+  $_SESSION['school_name'] = $_POST['school_name'];
+  $school_name = $_POST['school_name'];
   $school_class_id = $_SESSION['current_school'];
   
+}
+if (isset($_POST['details_class_btn12'])) {
+  $class_student_id = $_POST['details_class_btn12'];
+  $_SESSION['current_class'] = $_POST['details_class_btn12'];
+  $_SESSION['c_name'] = $_POST['c_name'];
+  $class_name1 = $_POST['c_name'];
+  $school_class_id = $_SESSION['current_class'];
 }
 if (isset($_SESSION['current_class'])) {
   $class_student_id = $_SESSION['current_class'];
@@ -17,7 +23,6 @@ if (isset($_SESSION['current_class'])) {
   $school_name = $_SESSION['school_name'];
   $school_class_id = $_SESSION['current_school'];
 }
-
 ?>
 
 <body>
@@ -91,6 +96,7 @@ if (isset($_SESSION['current_class'])) {
         ?>
         <div class="row-fluid"><br>
           <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
+          <a href="schools.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Schools</a>
           <a href="add_students.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add Students</a>
           <!-- block -->
           <div id="block_bg" class="block">

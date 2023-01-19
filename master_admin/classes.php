@@ -2,9 +2,9 @@
 <?php include('../includes/session.php'); ?>
 
 <?php
-if (isset($_POST['details_school_btn'])) {
-    $school_class_id = $_POST['details_school_btn'];
-    $_SESSION['current_school'] = $_POST['details_school_btn'];
+if (isset($_POST['details_class_btn'])) {
+    $school_class_id = $_POST['details_class_btn'];
+    $_SESSION['current_school'] = $_POST['details_class_btn'];
     $_SESSION['school_name'] = $_POST['school_name'];
     $school_name = $_POST['school_name'];
 }
@@ -164,11 +164,11 @@ foreach ($rows as $row) {
 
                                                 if($total_students == 0){
                                                     $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
-                                                    $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn1'> $total_students</button>";
+                                                    $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn12'> $total_students</button>";
                                                   }
                                                   else{
                                                     $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>  Students";
-                                                    $total_students_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn1'> $total_students</button>";
+                                                    $total_students_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn12'> $total_students</button>";
                                                   }
                                                   $teacher_details = "<form class='form-inline mb-0'  action='edit_class.php' method='POST'>
                                                       <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_class'>Add Teacher</button>
