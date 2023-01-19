@@ -63,7 +63,7 @@
                     COUNT(sls_classes.id) AS total_classes 
                     FROM sls_schools LEFT JOIN sls_teachers ON sls_schools.id = sls_teachers.school_id 
                     LEFT JOIN sls_classes ON sls_classes.teacher_id = sls_teachers.id LEFT JOIN sls_students 
-                    ON sls_students.classID = sls_classes.id WHERE sls_schools.id = 8 GROUP BY sls_schools.id
+                    ON sls_students.classID = sls_classes.id  GROUP BY sls_schools.id
                     "
               );
             // $old_query = "SELECT sls_subjects.*, sls_teachers.teacher_name
