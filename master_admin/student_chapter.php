@@ -59,6 +59,41 @@ if (isset($_SESSION['current_std_chapter'])) {
               ";
           unset($_SESSION['success']);
         }
+        if (isset($current_std_chapter)) {
+          $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
+            $sql = 'SELECT * FROM sls_teachers';
+            try {
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $teachers_rows = $stmt->fetchAll();
+            } catch (PDOException $e) {
+                $_SESSION['error'] = $e->getMessage();
+            }
+            $teachers_selection =
+                "<select name='teacher' class='custom-select'>";
+            $teachers_selection =
+                $teachers_selection .
+                "<option value='-1'>Select Teacher</option>";
+            foreach ($teachers_rows as $teacher_record) {
+                $teachers_selection =
+                    $teachers_selection .
+                    "<option value='" .
+                    $teacher_record['id'] .
+                    "'>" .
+                    $teacher_record['teacher_name'] .
+                    '</option>';
+            }
+            $teachers_selection = $teachers_selection . '</select>';
+            $stmt = $conn->prepare(
+                  "SELECT sls_chapters.*, COUNT(sls_questions.id) AS total_questions 
+                  FROM sls_chapters LEFT JOIN sls_questions 
+                  ON sls_chapters.id = sls_questions.chapter_id 
+                  WHERE sls_chapters.subject_id = $current_std_chapter 
+                  GROUP BY sls_chapters.id;
+                  "
+            );
+            $stmt->execute();
+            $rows = $stmt->fetchAll();
         ?>
         <div class="row-fluid"><br>
           <a href="student_profile.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Subjects</a>
@@ -76,41 +111,60 @@ if (isset($_SESSION['current_std_chapter'])) {
                   <!-- <a  id="delete_school" class="btn btn-danger" name="delete_school"><i class="icon-trash icon-large"></i>Delete</a> -->
                   <?php // include('delete_modal.php'); 
                   ?>
-                  <!-- <thead>
+                  <thead>
                     <tr>
-                      <th width=20%>Student Name</th>
-                      <th></th>
-                       <th>Email</th>
-                      <th>Action</th>
+                      <th >Chapter Number</th>
+                      <th >Chapter Name</th>
+                      <th>Questions</th>
+                      <th>Previous Exams</th>
+                      
+                      
                     </tr>
-                  </thead> -->
+                  </thead>
                   <tbody>
-                    <div>
+                    <!-- <div>
                         Chapters Name: 
-                    </div>
+                    </div> -->
                     <?php
-                    if (isset($current_std_chapter)) {
-                      $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                      $stmt = $conn->prepare("SELECT * FROM sls_chapters WHERE subject_id=$current_std_chapter");
-                      $stmt->execute();
-                      $rows = $stmt->fetchAll();
+                    // if (isset($current_std_chapter)) {
+                    //   $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
+                    //   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    //   $stmt = $conn->prepare("SELECT * FROM sls_chapters WHERE subject_id=$current_std_chapter");
+                      
                       foreach ($rows as $row) {
-                        
-                        // $id = $row['id'];
-                         
-                        echo "  
-                            <div>
-                                ".$row['chapter_name']." 
-                                <form action='student_question.php' method='POST'>
-                                  <input type='hidden' name='chpName' value=" .$row['chapter_name']. ">
-                                  <button   type='submit' class='btn btn-primary' value=".$row['id']." name='std_question_btn'>Questions</button>
-                                  </form> 
-                                  <form action='results_by_chpater.php' method='POST'>
-                                    <input type='hidden' name='chpName' value=" .$row['chapter_name']. ">
-                                    <button   type='submit' class='btn btn-primary' value='".$row['id']."' name='resultByChapter_btn'>Preveious Exams results</button>
-                                </form> 
-                            </div>          
+                        $id = $row['id'];
+                        $chapterNumber = $row['chapter_number'];
+                        $chapterName = $row['chapter_name'];
+                        $total_questions = $row['total_questions'];
+                        if($total_questions == 0){
+                          $total_questions = "<span class='badge bg-danger text-white ms-2'>0</span> Questions &nbsp";
+                          $total_questions_text = "<button  type='submit' class='btn btn-warning' value='$id' name='std_question_btn'> $total_questions</button>";
+                        }
+                        else{
+                          $total_questions = "<span class='badge bg-success text-white ms-2'>$total_questions </span>  Questions";
+                          $total_questions_text = "<button  type='submit' class='btn btn-primary' value='$id' name='std_question_btn'> $total_questions</button>";
+                        }
+                        echo "
+                          <tr>
+                            <td>
+                              $chapterNumber
+                            </td>
+                            <td>
+                              $chapterName
+                            </td>
+                            <td> 
+                              <form class='d-inline-block mb-0' action='student_question.php' method='POST'>
+                                <input type='hidden' name='chpName' value='$chapterName'>                                  
+                                $total_questions_text
+                              </form> 
+                            </td>
+                            <td>
+                              <form class='d-inline-block mb-0' action='results_by_chpater.php' method='POST'>
+                                <input type='hidden' name='chpName' value=" .$row['chapter_name']. ">
+                                <button   type='submit' class='btn btn-primary' value='".$row['id']."' name='resultByChapter_btn'>Preveious Exams results</button>
+                              </form>
+                            </td>
+                          </tr>        
                         ";
                       }
                     }

@@ -15,7 +15,7 @@ if (isset($_POST['details_class_btn12'])) {
   $_SESSION['current_class'] = $_POST['details_class_btn12'];
   $_SESSION['c_name'] = $_POST['c_name'];
   $class_name1 = $_POST['c_name'];
-  $school_class_id = $_SESSION['current_class'];
+  // $school_class_id = $_SESSION['current_class'];
 }
 if (isset($_SESSION['current_class'])) {
   $class_student_id = $_SESSION['current_class'];

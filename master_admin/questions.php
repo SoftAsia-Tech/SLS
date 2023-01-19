@@ -110,11 +110,11 @@ if (isset($_SESSION['current_chapter'])) {
                                            <!--<form action='questions.php' method='POST'>
                                               <button  type='submit' class='btn btn-primary' value=" . $row['id'] . " name='questions_chapterwise_btn'>Questions</button>
                                             </form>-->
-                                             <form action='delete_question.php' method='POST'>       
-                                                <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_question'>Delete</button>  
+                                             <form class='d-inline-block mb-0' action='delete_question.php' method='POST'>       
+                                                <button  type='submit' class='btn btn-danger' value=" . $row['id'] . " name='delete_question'><i class='bi bi-trash'></i></button>  
                                             </form>
-                                            <form action='edit_question.php' method='POST'>
-                                                <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_question'>Edit</button>  
+                                            <form class='d-inline-block mb-0' action='edit_question.php' method='POST'>
+                                                <button  type='submit' class='btn btn-success' value=" . $row['id'] . " name='edit_question'><i class='bi bi-pencil-square'></i></button>  
                                             </form>
                                             <!--<a href='edit_school.php?=" . $row['id'] . "' class='btn btn-success'> Edit</a>-->
                                         </td>

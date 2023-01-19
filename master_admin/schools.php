@@ -96,7 +96,7 @@
 								<th>School Name</th>
 								<th>Classes</th>
 								<th>Teachers</th>
-								<th>Students</th>
+								<!-- <th>Students</th> -->
 								<th>Action</th>
 							   </tr>
 							</thead>
@@ -164,12 +164,12 @@
                                 $total_teachers_text
                               </form>
                               </td>
-                              <td>
+                             <!-- <td>
                               <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                 <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_students_text
                               </form>
-                              </td>
+                              </td>-->
                               <td> 
                               
                               <form class='d-inline-block mb-0' action='delete_school.php' method='POST'>       
