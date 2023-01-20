@@ -53,16 +53,15 @@ if (isset($_SESSION['current_student'])) {
           $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $stmt = $conn->prepare(
-            "SELECT sls_students.*, sls_chapters.id AS chapterID, sls_chapters.chapter_name, sls_subjects.id 
-            AS subjectID, sls_subjects.subject_name,
-            (SELECT COUNT(id) FROM sls_subjects WHERE sls_subjects.class_id = sls_students.classID) AS total_subjects 
+            "SELECT sls_students.*, sls_subjects.id AS subjectID, sls_subjects.subject_name, 
+            (SELECT COUNT(id) FROM sls_chapters WHERE sls_subjects.id = sls_chapters.subject_id) AS total_chapters 
             FROM sls_students 
-            INNER JOIN sls_subjects 
-            ON sls_students.classID = sls_subjects.class_id
-            INNER JOIN sls_chapters
-            ON sls_chapters.subject_id = sls_subjects.id
+            LEFT JOIN sls_subjects 
+            ON sls_students.classID = sls_subjects.class_id 
+            LEFT JOIN sls_chapters 
+            ON sls_chapters.subject_id = sls_subjects.id 
             WHERE sls_students.id=$studentID
-            GROUP BY sls_students.id
+            GROUP BY sls_subjects.id
               
               ");
           $stmt->execute();
@@ -99,15 +98,15 @@ if (isset($_SESSION['current_student'])) {
                       foreach ($rows as $row) {
                         $id = $row['id'];
                         $subjectName = $row['subject_name'];
-                        $chpaterName = $row['chapter_name'];
-                        $total_subjects = $row['total_subjects'];
-                        if($total_subjects == 0){
-                          $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Chapters &nbsp";
-                          $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_subjects</button>";
+                        // $chpaterName = $row['chapter_name'];
+                        $total_chapters = $row['total_chapters'];
+                        if($total_chapters == 0){
+                          $total_chapters = "<span class='badge bg-danger text-white ms-2'>0</span> Chapters &nbsp";
+                          $total_chapters_text = "<button  type='submit' class='btn btn-warning' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_chapters</button>";
                         }
                         else{
-                          $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Chapters";
-                          $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_subjects</button>";
+                          $total_chapters = "<span class='badge bg-success text-white ms-2'>$total_chapters </span>  Chapters";
+                          $total_chapters_text = "<button  type='submit' class='btn btn-primary' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_chapters</button>";
                         }
                         echo " 
                           <tr>
@@ -118,7 +117,7 @@ if (isset($_SESSION['current_student'])) {
                               <form class='d-inline-block mb-0' action='student_chapter.php' method='POST'>
                                 <input type='hidden' name='sbjName' value='$subjectName'> 
                                 <input type='hidden' name='stdID' value=" .$row['id']. ">                                 
-                                $total_subjects_text
+                                $total_chapters_text
                               </form>
                             </td>
                            

@@ -67,7 +67,8 @@ if (isset($_SESSION['current_chapterId'])) {
                             echo $class_name . " > ";
                             echo $studentName . " > ";
                             echo $sbjName . " > ";
-                            echo $chpName
+                            echo $chpName . " > ";
+                            echo "Previous Results";
                             ?>
                             <!-- <div class="muted pull-left">Subjects List</div> -->
                         </div>

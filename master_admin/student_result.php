@@ -131,7 +131,8 @@ if (isset($_POST['submit_answers'])) {
                             echo $class_name . " > ";
                             echo $studentName . " > ";
                             echo $sbjName . " > ";
-                            echo $chpName
+                            echo $chpName . " > ";
+                            echo "Test Result";
                             ?>
                             <!-- <div class="muted pull-left">Subjects List</div> -->
                         </div>

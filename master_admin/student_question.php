@@ -122,7 +122,7 @@ if (isset($_SESSION['current_std_question'])) {
                                 </div> 
                                 
                                 <div>
-                                    " . $row['question'] . " <br>
+                                <b>" . $row['question_number'] . ". " . $row['question'] . "</b> <br>
                                     <input type='hidden' value='question_" . $row['id'] . "' name='question_" . $row['id'] . "'>
                                    (a) <input type='radio'  checked='checked' value='a' name='answer_" . $row['id'] . "'> <label for='ans1'>" . $row['option1'] . "</label> <br>
                                    (b) <input type='radio'  value='b' name='answer_" . $row['id'] . "'> <label for='ans2'>" . $row['option2'] . "</label><br>

@@ -1,25 +1,17 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
 <?php
-if (isset($_POST['details_class_btn1'])) {
-
-  $class_student_id = $_POST['details_class_btn1'];
-  $_SESSION['current_school'] = $_POST['details_class_btn1'];
-  $_SESSION['school_name'] = $_POST['school_name'];
-  $school_name = $_POST['school_name'];
-  $school_class_id = $_SESSION['current_school'];
-  
-}
 if (isset($_POST['details_class_btn12'])) {
   $class_student_id = $_POST['details_class_btn12'];
   $_SESSION['current_class'] = $_POST['details_class_btn12'];
   $_SESSION['c_name'] = $_POST['c_name'];
-  $class_name1 = $_POST['c_name'];
-  // $school_class_id = $_SESSION['current_class'];
+  $class_name = $_POST['c_name'];
+  $school_name = $_SESSION['school_name'];
+  $school_class_id = $_SESSION['current_school'];
 }
 if (isset($_SESSION['current_class'])) {
   $class_student_id = $_SESSION['current_class'];
-  $class_name1 = $_SESSION['c_name'];
+  $class_name = $_SESSION['c_name'];
   $school_name = $_SESSION['school_name'];
   $school_class_id = $_SESSION['current_school'];
 }
@@ -101,7 +93,7 @@ if (isset($_SESSION['current_class'])) {
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
-              <?php echo $school_name." > ".$class_name1; ?>
+              <?php echo $school_name." > ".$class_name; ?>
               <!-- <div class="muted pull-left">Subjects List</div> -->
             </div>
             <div class="block-content /*collapse in*/">
