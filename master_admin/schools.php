@@ -108,7 +108,7 @@
 								<th>School Name</th>
 								<th>Classes</th>
 								<th>Teachers</th>
-								<!-- <th>Students</th> -->
+								<th>Students</th>
 								<th>Action</th>
 							   </tr>
 							</thead>
@@ -130,28 +130,28 @@
                       $total_teachers = $row['total_teachers'];
                         
                       if($total_classes == 0){
-                        $total_classes = "<span class='badge bg-danger text-white ms-2'>0</span> Classes &nbsp";
+                        // $total_classes = "<span class='badge bg-danger text-white ms-2'>0</span>";
                         $total_classes_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn'> $total_classes</button>";
                       }
                       else{
-                        $total_classes = "<span class='badge bg-success text-white ms-2'>$total_classes </span>  Classes";
+                        // $total_classes = "<span class='badge bg-success text-white ms-2'>$total_classes </span>";
                         $total_classes_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn'> $total_classes</button>";
                       }
 
                     if($total_students == 0){
-                        $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
+                        // $total_students = "<span class='badge bg-danger text-white ms-2'>0</span>";
                         $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn1'> $total_students</button>";
                       }
                       else{
-                        $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>  Students";
+                        // $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>";
                         $total_students_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn1'> $total_students</button>";
                       } 
                     if($total_teachers == 0){
-                        $total_teachers = "<span class='badge bg-danger text-white ms-2'>0</span> Teachers &nbsp";
+                        // $total_teachers = "<span class='badge bg-danger text-white ms-2'>0</span>";
                         $total_teachers_text = "<button  type='submit' class='btn btn-warning' value='$id' name='school_teachers_btn'> $total_teachers</button>";
                       }
                       else{
-                        $total_teachers = "<span class='badge bg-success text-white ms-2'>$total_teachers </span>  Teachers";
+                        // $total_teachers = "<span class='badge bg-success text-white ms-2'>$total_teachers </span>";
                         $total_teachers_text = "<button  type='submit' class='btn btn-primary' value='$id' name='school_teachers_btn'> $total_teachers</button>";
                       } 
                       // $teacher_details = "<form class='form-inline mb-0'  action='edit_school.php' method='POST'>
@@ -176,12 +176,12 @@
                                 $total_teachers_text
                               </form>
                               </td>
-                             <!-- <td>
+                             <td>
                               <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                 <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_students_text
                               </form>
-                              </td>-->
+                              </td>
                               <td> 
                               
                               <form class='d-inline-block mb-0' action='delete_school.php' method='POST'>       
