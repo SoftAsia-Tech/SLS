@@ -55,14 +55,26 @@
                       '</option>';
               }
               $teachers_selection = $teachers_selection . '</select>';
-              $stmt = $conn->prepare(
-                    "SELECT sls_schools.id, sls_schools.firstname, 
-                    (SELECT COUNT(DISTINCT id) FROM sls_teachers WHERE sls_teachers.school_id = sls_schools.id) AS total_teachers, 
-                    (SELECT COUNT(sls_students.id) FROM sls_students WHERE sls_students.schoolID = sls_schools.id) AS total_students, 
-                    (SELECT COUNT(sls_classes.id) FROM sls_classes WHERE sls_classes.school_id = sls_schools.id) AS total_classes 
-                    FROM sls_schools GROUP BY sls_schools.id, sls_schools.firstname
-                    ");
+              // $stmt = $conn->prepare(
+              //       "SELECT sls_schools.id, sls_schools.firstname, 
+              //       (SELECT COUNT(DISTINCT id) FROM sls_teachers WHERE sls_teachers.school_id = sls_schools.id) AS total_teachers, 
+              //       (SELECT COUNT(sls_students.id) FROM sls_students WHERE sls_students.schoolID = sls_schools.id) AS total_students, 
+              //       (SELECT COUNT(sls_classes.id) FROM sls_classes WHERE sls_classes.school_id = sls_schools.id) AS total_classes 
+              //       FROM sls_schools GROUP BY sls_schools.id, sls_schools.firstname
+              //       ");
                     
+
+                    $stmt = $conn->prepare(
+                      "SELECT sls_schools.*, 
+                      COUNT(DISTINCT sls_students.id) AS 'total_students', 
+                      COUNT(DISTINCT sls_classes.id) AS 'total_classes', 
+                      COUNT(DISTINCT sls_teachers.id) AS 'total_teachers'
+                      FROM sls_schools 
+                      LEFT JOIN sls_classes ON sls_schools.id = sls_classes.school_id 
+                      LEFT JOIN sls_teachers ON sls_schools.id = sls_teachers.school_id 
+                      LEFT JOIN sls_students ON sls_classes.id = sls_students.classID 
+                      GROUP BY sls_schools.id                                 
+                    ");
                   
            
               
