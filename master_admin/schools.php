@@ -66,7 +66,7 @@
 
                     $stmt = $conn->prepare(
                       "SELECT sls_schools.*, 
-                      COUNT(DISTINCT sls_students.id) AS 'total_students', 
+                      COUNT(DISTINCT sls_students.id ) AS 'total_students', 
                       COUNT(DISTINCT sls_classes.id) AS 'total_classes', 
                       COUNT(DISTINCT sls_teachers.id) AS 'total_teachers'
                       FROM sls_schools 
@@ -176,7 +176,7 @@
                                 $total_teachers_text
                               </form>
                               </td>
-                             <td>
+                              <td>
                               <form class='d-inline-block mb-0' action='students.php' method='POST'>
                                 <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_students_text

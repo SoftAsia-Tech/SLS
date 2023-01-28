@@ -1,18 +1,17 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
 <?php
-if (isset($_POST['details_class_btn12'])) {
-  $class_student_id = $_POST['details_class_btn12'];
-  $_SESSION['current_class'] = $_POST['details_class_btn12'];
-  $_SESSION['c_name'] = $_POST['c_name'];
-  $class_name = $_POST['c_name'];
-  $school_name = $_SESSION['school_name'];
+if (isset($_POST['details_class_btn1'])) {
+  $school_student_id = $_POST['details_class_btn1'];
+  $_SESSION['current_school'] = $_POST['details_class_btn1'];
+  $_SESSION['school_name'] = $_POST['school_name'];
+  $school_name = $_POST['school_name'];
   $school_class_id = $_SESSION['current_school'];
 }
-if (isset($_SESSION['current_class'])) {
-  $class_student_id = $_SESSION['current_class'];
-  $class_name = $_SESSION['c_name'];
+if (isset($_SESSION['current_school'])) {
+  $school_student_id = $_SESSION['current_school'];
   $school_name = $_SESSION['school_name'];
+//   $school_name = $_SESSION['school_name'];
   $school_class_id = $_SESSION['current_school'];
 }
 ?>
@@ -46,53 +45,54 @@ if (isset($_SESSION['current_class'])) {
               ";
           unset($_SESSION['success']);
         }
-        if (isset($class_student_id)) {
+        if (isset($school_student_id)) {
           $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
-          $sql = 'SELECT * FROM sls_teachers';
-          try {
-              $stmt = $conn->prepare($sql);
-              $stmt->execute();
-              $teachers_rows = $stmt->fetchAll();
-          } catch (PDOException $e) {
-              $_SESSION['error'] = $e->getMessage();
-          }
-          $teachers_selection =
-              "<select name='teacher' class='custom-select'>";
-          $teachers_selection =
-              $teachers_selection .
-              "<option value='-1'>Select Teacher</option>";
-          foreach ($teachers_rows as $teacher_record) {
-              $teachers_selection =
-                  $teachers_selection .
-                  "<option value='" .
-                  $teacher_record['id'] .
-                  "'>" .
-                  $teacher_record['teacher_name'] .
-                  '</option>';
-          }
-          $teachers_selection = $teachers_selection . '</select>';
+        //   $sql = 'SELECT * FROM sls_teachers';
+        //   try {
+        //       $stmt = $conn->prepare($sql);
+        //       $stmt->execute();
+        //       $teachers_rows = $stmt->fetchAll();
+        //   } catch (PDOException $e) {
+        //       $_SESSION['error'] = $e->getMessage();
+        //   }
+        //   $teachers_selection =
+        //       "<select name='teacher' class='custom-select'>";
+        //   $teachers_selection =
+        //       $teachers_selection .
+        //       "<option value='-1'>Select Teacher</option>";
+        //   foreach ($teachers_rows as $teacher_record) {
+        //       $teachers_selection =
+        //           $teachers_selection .
+        //           "<option value='" .
+        //           $teacher_record['id'] .
+        //           "'>" .
+        //           $teacher_record['teacher_name'] .
+        //           '</option>';
+        //   }
+        //   $teachers_selection = $teachers_selection . '</select>';
           $stmt = $conn->prepare(
-              "SELECT sls_students.*, sls_subjects.subject_name, 
-              (SELECT COUNT(id) FROM sls_subjects WHERE sls_subjects.class_id = sls_students.classID) AS total_subjects 
-              -- (SELECT COUNT(id) FROM sls_students WHERE sls_students.classID = sls_classes.id) AS total_students
-              FROM sls_students
-              LEFT JOIN sls_subjects
-              ON sls_students.classID = sls_subjects.class_id
-              WHERE sls_students.classID = $class_student_id AND sls_students.schoolID = $school_class_id
-              GROUP BY sls_students.id;
-              "
+            //   "SELECT sls_students.*, sls_subjects.subject_name, 
+             
+            // (SELECT COUNT(id) FROM sls_subjects WHERE sls_subjects.class_id = sls_students.classID) AS total_subjects 
+            // (SELECT COUNT(id) FROM sls_students WHERE sls_students.classID = sls_classes.id) AS total_students
+            // FROM sls_students
+            // LEFT JOIN sls_subjects
+            // ON sls_students.classID = sls_subjects.class_id
+            // WHERE sls_students.classID = $school_student_id
+            // GROUP BY sls_students.id; "
+            "SELECT * FROM sls_students WHERE sls_students.schoolID=$school_student_id"
           );
           $stmt->execute();
           $rows = $stmt->fetchAll();
 
         ?>
         <div class="row-fluid"><br>
-          <a href="classes.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Classes</a>
-          <a href="add_students.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add Students</a>
+          <a href="schools.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Back to Schools</a>
+          <!-- <a href="add_students.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add Students</a> -->
           <!-- block -->
           <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">
-              <?php echo $school_name." > ".$class_name; ?>
+              <?php echo $school_name ?>
               <!-- <div class="muted pull-left">Subjects List</div> -->
             </div>
             <div class="block-content /*collapse in*/">
@@ -106,7 +106,7 @@ if (isset($_SESSION['current_class'])) {
                     <tr>
 
                       <th>Student Name</th>
-                      <th>Subjects</th>
+                      <!-- <th>Subjects</th> -->
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -114,25 +114,19 @@ if (isset($_SESSION['current_class'])) {
 
 
                     <?php
-                    // 
-                    //   $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                    //   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    //   $stmt = $conn->prepare("SELECT * FROM sls_students WHERE classID=$class_student_id");
-                    //   $stmt->execute();
-                    //   $rows = $stmt->fetchAll();
+                    
                       foreach ($rows as $row) {
                         $id = $row['id'];
                         $studentName = $row['s_name'];
-                        $subjectName = $row['subject_name'];
-                        $total_subjects = $row['total_subjects'];
-                        if($total_subjects == 0){
-                          $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
-                          $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
-                        }
-                        else{
-                          $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
-                          $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
-                        }
+                        
+                        // if($total_subjects == 0){
+                        //   $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
+                        //   $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
+                        // }
+                        // else{
+                        //   $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
+                          $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_studentProfile_btn'></button>";
+                        // }
 
                         // $teacher_details = "<form class='form-inline mb-0'  action='edit_class.php' method='POST'>
                         //     <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_class'>Add Teacher</button>
@@ -143,13 +137,13 @@ if (isset($_SESSION['current_class'])) {
                         echo " 
                             <tr> 
                               <td>$studentName</td>
-                              <td> 
+                             <!-- <td> 
                                 <form class='d-inline-block mb-0' action='student_profile.php' method='POST'>
                                   <input type='hidden' name='s_name' value='$studentName'>  
                                   $total_subjects_text
                                 </form>
                                
-                              </td>
+                              </td>-->
                               
                               <td> 
                                 <form class='d-inline-block mb-0' action='delete_student.php' method='POST'>       
