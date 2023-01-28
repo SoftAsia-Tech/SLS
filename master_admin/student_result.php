@@ -39,13 +39,18 @@ if (isset($_POST['submit_answers'])) {
     $studentID = $_SESSION['current_student'];
     $current_std_question = $_SESSION['current_std_question'];
     $chapterID = $current_std_question;
-    $time = date('d-m-y h:i:s');
+    // $time = date('d-m-y h:i:s');
+    date_default_timezone_set('Asia/Karachi');
+    $timestamp = time();
+    $formatted_date = gmdate("Y-m-d H:i:s", $timestamp);
+    // $timestamp = time();
+    // $formatted_date = date("Y-m-d H:i:s", $timestamp);
     // $studentAnswer = $_POST['answer'];
     // date_default_timezone_set('Pakistan/Islamabad');
     // $time = getdate();
     $conn = $pdo->open();
-    $stmt = $conn->prepare("INSERT INTO sls_exams (student_id, chapter_id, exam_time	) VALUES (:student_id, :chapter_id, :exam_time)");
-    $stmt->execute(['student_id' => $studentID, 'chapter_id' => $chapterID, 'exam_time'=>$time]);
+    $stmt = $conn->prepare("INSERT INTO sls_exams (student_id, chapter_id, exam_time) VALUES (:student_id, :chapter_id, :exam_time)");
+    $stmt->execute(['student_id' => $studentID, 'chapter_id' => $chapterID, 'exam_time'=>$formatted_date]);
     $last_id = $conn->lastInsertId();
     
     // $conn->lastInsertId();

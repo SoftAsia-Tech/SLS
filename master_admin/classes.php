@@ -97,15 +97,7 @@ foreach ($rows as $row) {
                         GROUP BY sls_classes.id;
                         "
                     );
-                    // $std_query = (
-                    //     "SELECT sls_classes.*, COUNT(sls_students.id) AS total_students
-                    //     FROM sls_classes
-                    //     LEFT JOIN sls_students
-                    //     ON sls_classes.id = sls_students.classID
-                    //     WHERE sls_classes.school_id = $school_class_id
-                    //     GROUP BY sls_classes.id
-                    //     "
-                    // );
+                    
                     $old_query = "SELECT sls_classes.*, sls_teachers.teacher_name
                     FROM sls_classes
                     LEFT JOIN sls_teachers
@@ -141,12 +133,6 @@ foreach ($rows as $row) {
 
                                         <?php
 
-                                        // if (isset($school_class_id)) {
-                                        //     $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                                        //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                        //     $stmt = $conn->prepare("SELECT * FROM sls_classes WHERE school_id=$school_class_id");
-                                        //     $stmt->execute();
-                                        //     $rows = $stmt->fetchAll();
                                             foreach ($rows as $row) {
                                                 $id = $row['id'];
                                                 $class_name = $row['c_name'];
