@@ -114,17 +114,11 @@ if (isset($_SESSION['current_school'])) {
 
 
                     <?php
-                    // 
-                    //   $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
-                    //   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    //   $stmt = $conn->prepare("SELECT * FROM sls_students WHERE classID=$class_student_id");
-                    //   $stmt->execute();
-                    //   $rows = $stmt->fetchAll();
+                    
                       foreach ($rows as $row) {
                         $id = $row['id'];
                         $studentName = $row['s_name'];
-                        // $subjectName = $row['subject_name'];
-                        // $total_subjects = $row['total_subjects'];
+                        
                         // if($total_subjects == 0){
                         //   $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
                         //   $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
