@@ -9,7 +9,7 @@ if (isset($_POST['resultByChapter_btn'])) {
     $_SESSION['chpName'] = $_POST['chpName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     $stdID = $_SESSION['stdID'];
     // $chpName = $_SESSION['chpName'];
     $sbjName = $_SESSION['sbjName'];
@@ -19,7 +19,7 @@ if (isset($_SESSION['current_chapterId'])) {
     $chapterId = $_SESSION['current_chapterId'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     $stdID = $_SESSION['stdID'];
     $chpName = $_SESSION['chpName'];
     $sbjName = $_SESSION['sbjName'];

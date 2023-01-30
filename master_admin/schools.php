@@ -32,29 +32,7 @@
             // if (isset($class_subject_id)) {
 
               $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
-              $sql = 'SELECT * FROM sls_teachers';
-              try {
-                  $stmt = $conn->prepare($sql);
-                  $stmt->execute();
-                  $teachers_rows = $stmt->fetchAll();
-              } catch (PDOException $e) {
-                  $_SESSION['error'] = $e->getMessage();
-              }
-              $teachers_selection =
-                  "<select name='teacher' class='custom-select'>";
-              $teachers_selection =
-                  $teachers_selection .
-                  "<option value='-1'>Select Teacher</option>";
-              foreach ($teachers_rows as $teacher_record) {
-                  $teachers_selection =
-                      $teachers_selection .
-                      "<option value='" .
-                      $teacher_record['id'] .
-                      "'>" .
-                      $teacher_record['teacher_name'] .
-                      '</option>';
-              }
-              $teachers_selection = $teachers_selection . '</select>';
+              
               // $stmt = $conn->prepare(
               //       "SELECT sls_schools.id, sls_schools.firstname, 
               //       (SELECT COUNT(DISTINCT id) FROM sls_teachers WHERE sls_teachers.school_id = sls_schools.id) AS total_teachers, 
@@ -154,12 +132,7 @@
                         // $total_teachers = "<span class='badge bg-success text-white ms-2'>$total_teachers </span>";
                         $total_teachers_text = "<button  type='submit' class='btn btn-primary' value='$id' name='school_teachers_btn'> $total_teachers</button>";
                       } 
-                      // $teacher_details = "<form class='form-inline mb-0'  action='edit_school.php' method='POST'>
-                      //     <button type='submit' class='d-inline-block btn btn-warning' value='$id' name='edit_school'>Add Teacher</button>
-                      //   </form>";
-                      // if (!is_null($row['teacher_name'])) {
-                      //     $teacher_details = $row['teacher_name'];
-                      // }
+                      
 
                         echo " 
                             <tr> 
@@ -177,7 +150,7 @@
                               </form>
                               </td>
                               <td>
-                              <form class='d-inline-block mb-0' action='students.php' method='POST'>
+                              <form class='d-inline-block mb-0' action='school_students.php' method='POST'>
                                 <input type='hidden' name='school_name' value='$schoolName'>                                  
                                 $total_students_text
                               </form>

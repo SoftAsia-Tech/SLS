@@ -126,11 +126,11 @@ if (isset($_SESSION['current_class'])) {
                         $subjectName = $row['subject_name'];
                         $total_subjects = $row['total_subjects'];
                         if($total_subjects == 0){
-                          $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
+                          // $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
                           $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
                         }
                         else{
-                          $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
+                          // $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
                           $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_studentProfile_btn'> $total_subjects</button>";
                         }
 

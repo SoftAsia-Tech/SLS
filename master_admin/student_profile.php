@@ -8,13 +8,13 @@ if (isset($_POST['details_studentProfile_btn'])) {
   $_SESSION['s_name'] = $_POST['s_name'];
   $studentName = $_SESSION['s_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
   
 }
 if (isset($_SESSION['current_student'])) {
   $studentID = $_SESSION['current_student'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
   $studentName = $_SESSION['s_name'];
 }
 
@@ -101,11 +101,11 @@ if (isset($_SESSION['current_student'])) {
                         // $chpaterName = $row['chapter_name'];
                         $total_chapters = $row['total_chapters'];
                         if($total_chapters == 0){
-                          $total_chapters = "<span class='badge bg-danger text-white ms-2'>0</span> Chapters &nbsp";
+                          // $total_chapters = "<span class='badge bg-danger text-white ms-2'>0</span> Chapters &nbsp";
                           $total_chapters_text = "<button  type='submit' class='btn btn-warning' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_chapters</button>";
                         }
                         else{
-                          $total_chapters = "<span class='badge bg-success text-white ms-2'>$total_chapters </span>  Chapters";
+                          // $total_chapters = "<span class='badge bg-success text-white ms-2'>$total_chapters </span>  Chapters";
                           $total_chapters_text = "<button  type='submit' class='btn btn-primary' value='".$row['subjectID']."' name='std_profile_chapter_btn'> $total_chapters</button>";
                         }
                         echo " 
