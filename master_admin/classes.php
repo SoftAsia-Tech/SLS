@@ -140,20 +140,20 @@ foreach ($rows as $row) {
                                                 $total_students = $row['total_students'];
                                                 
                                                 if($total_subjects == 0){
-                                                    $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
+                                                    // $total_subjects = "<span class='badge bg-danger text-white ms-2'>0</span> Subjects &nbsp";
                                                     $total_subjects_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn'> $total_subjects</button>";
                                                   }
                                                   else{
-                                                    $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
+                                                    // $total_subjects = "<span class='badge bg-success text-white ms-2'>$total_subjects </span>  Subjects";
                                                     $total_subjects_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn'> $total_subjects</button>";
                                                   }
 
                                                 if($total_students == 0){
-                                                    $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
+                                                    // $total_students = "<span class='badge bg-danger text-white ms-2'>0</span> Students &nbsp";
                                                     $total_students_text = "<button  type='submit' class='btn btn-warning' value='$id' name='details_class_btn12'> $total_students</button>";
                                                   }
                                                   else{
-                                                    $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>  Students";
+                                                    // $total_students = "<span class='badge bg-success text-white ms-2'>$total_students </span>  Students";
                                                     $total_students_text = "<button  type='submit' class='btn btn-primary' value='$id' name='details_class_btn12'> $total_students</button>";
                                                   }
                                                   $teacher_details = "<form class='form-inline mb-0'  action='edit_class.php' method='POST'>

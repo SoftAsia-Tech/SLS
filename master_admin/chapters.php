@@ -7,7 +7,7 @@ if (isset($_POST['details_subject_btn'])) {
   $_SESSION['current_subject'] = $_POST['details_subject_btn'];
   $_SESSION['subject_name'] = $_POST['subject_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
   $subject_name = $_POST['subject_name'];
   
 }
@@ -15,7 +15,7 @@ if (isset($_SESSION['current_subject'])) {
   $subject_chapters_id = $_SESSION['current_subject'];
   $subject_name = $_SESSION['subject_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
 }
 
 ?>
@@ -134,11 +134,11 @@ if (isset($_SESSION['current_subject'])) {
                         $chapterName = $row['chapter_name'];
                         $total_questions = $row['total_questions'];
                         if($total_questions == 0){
-                          $total_questions = "<span class='badge bg-danger text-white ms-2'>0</span> Questions &nbsp";
+                          // $total_questions = "<span class='badge bg-danger text-white ms-2'>0</span> Questions &nbsp";
                           $total_questions_text = "<button  type='submit' class='btn btn-warning' value='$id' name='questions_chapterwise_btn'> $total_questions</button>";
                         }
                         else{
-                          $total_questions = "<span class='badge bg-success text-white ms-2'>$total_questions </span>  Questions";
+                          // $total_questions = "<span class='badge bg-success text-white ms-2'>$total_questions </span>  Questions";
                           $total_questions_text = "<button  type='submit' class='btn btn-primary' value='$id' name='questions_chapterwise_btn'> $total_questions</button>";
                         }
                         echo " 

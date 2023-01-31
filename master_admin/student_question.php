@@ -15,7 +15,7 @@ if (isset($_POST['std_question_btn'])) {
     $sbjName = $_SESSION['sbjName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     // $subject_name = $_SESSION['subject_name'];
     // $chapter_name = $_SESSION['chapter_name'];
     // $studentID = $_SESSION['current_student'];
@@ -28,7 +28,7 @@ if (isset($_SESSION['current_std_question'])) {
     $chapterID = $current_std_question;
     // $subject_name = $_SESSION['subject_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     // $chapter_name = $_SESSION['chapter_name'];
     $studentName = $_SESSION['s_name'];
     // $studentID = $_SESSION['current_student'];

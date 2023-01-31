@@ -1,34 +1,6 @@
 <?php include('../includes/header.php'); ?>
 <?php include('../includes/session.php'); ?>
 <?php
-// if (isset($_POST['std_question_btn'])) {
-
-//     $current_std_question = $_POST['std_question_btn'];
-//     $_SESSION['current_std_question'] = $_POST['std_question_btn'];
-//     // $_SESSION['s_name'] = $_POST['s_name'];
-//     $studentName = $_SESSION['s_name'];
-//     $school_name = $_SESSION['school_name'];
-//     $class_name = $_SESSION['class_name'];
-//     $subject_name = $_SESSION['subject_name'];
-//     $chapter_name = $_SESSION['chapter_name'];
-//     $studentID = $_SESSION['current_student'];
-// }
-// if (isset($_SESSION['current_std_question'])) {
-//     $current_std_question = $_SESSION['current_std_question'];
-//     $subject_name = $_SESSION['subject_name'];
-//     $school_name = $_SESSION['school_name'];
-//     $class_name = $_SESSION['class_name'];
-//     $chapter_name = $_SESSION['chapter_name'];
-//     $studentName = $_SESSION['s_name'];
-//     $studentID = $_SESSION['current_student'];
-//     $last_id = $_SESSION['current_examid'];
-//     // $currenChapter_name = $_SESSION['s_name'];
-// }
-
-// if (isset($_SESSION['current_examid'])) {
-//     $last_id = $_SESSION['current_examid'];
-// }
-
 
 if (isset($_POST['submit_answers'])) {
     $quastions_ids = $_POST['submit_answers'];
@@ -70,7 +42,7 @@ if (isset($_POST['submit_answers'])) {
     
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     $stdID = $_SESSION['stdID'];
     $chpName = $_SESSION['chpName'];
     $sbjName = $_SESSION['sbjName'];
@@ -88,7 +60,7 @@ if (isset($_POST['submit_answers'])) {
     $sbjName = $_SESSION['sbjName'];
     $studentName = $_SESSION['s_name'];
     $school_name = $_SESSION['school_name'];
-    $class_name = $_SESSION['class_name'];
+    $class_name = $_SESSION['c_name'];
     // $subject_name = $_SESSION['subject_name'];
     // $chapter_name = $_SESSION['chapter_name'];
     $studentID = $_SESSION['current_student'];

@@ -47,29 +47,7 @@ if (isset($_SESSION['current_school'])) {
         }
         if (isset($school_student_id)) {
           $conn = new PDO('mysql:host=localhost;dbname=sls', 'root', '');
-        //   $sql = 'SELECT * FROM sls_teachers';
-        //   try {
-        //       $stmt = $conn->prepare($sql);
-        //       $stmt->execute();
-        //       $teachers_rows = $stmt->fetchAll();
-        //   } catch (PDOException $e) {
-        //       $_SESSION['error'] = $e->getMessage();
-        //   }
-        //   $teachers_selection =
-        //       "<select name='teacher' class='custom-select'>";
-        //   $teachers_selection =
-        //       $teachers_selection .
-        //       "<option value='-1'>Select Teacher</option>";
-        //   foreach ($teachers_rows as $teacher_record) {
-        //       $teachers_selection =
-        //           $teachers_selection .
-        //           "<option value='" .
-        //           $teacher_record['id'] .
-        //           "'>" .
-        //           $teacher_record['teacher_name'] .
-        //           '</option>';
-        //   }
-        //   $teachers_selection = $teachers_selection . '</select>';
+        
           $stmt = $conn->prepare(
             //   "SELECT sls_students.*, sls_subjects.subject_name, 
              

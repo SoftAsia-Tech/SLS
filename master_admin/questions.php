@@ -7,7 +7,7 @@ if (isset($_POST['questions_chapterwise_btn'])) {
   $_SESSION['current_chapter'] = $_POST['questions_chapterwise_btn'];
   $_SESSION['chapter_name'] = $_POST['chapter_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
   $subject_name = $_SESSION['subject_name'];
   $chapter_name = $_POST['chapter_name'];
   
@@ -16,7 +16,7 @@ if (isset($_SESSION['current_chapter'])) {
   $chapter_question_id = $_SESSION['current_chapter'];
   $subject_name = $_SESSION['subject_name'];
   $school_name = $_SESSION['school_name'];
-  $class_name = $_SESSION['class_name'];
+  $class_name = $_SESSION['c_name'];
   $chapter_name = $_SESSION['chapter_name'];
 }
 
