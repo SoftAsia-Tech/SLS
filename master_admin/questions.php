@@ -137,6 +137,7 @@ if (isset($_SESSION['current_chapter'])) {
     <?php //include('footer.php'); 
     ?>
   </div>
+  <script src="../JS/script.js"></script>
   <?php include('../includes/script.php'); ?>
 </body>
 
