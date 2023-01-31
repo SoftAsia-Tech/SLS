@@ -93,7 +93,7 @@ if (isset($_SESSION['current_std_question'])) {
                                     <tbody>
                                         
                                 <form action='student_result.php' method='POST'>
-                                <div id="timer" style="float: right;"></div>
+                                <!-- <div id="timer" style="float: right;"></div> -->
                                     <?php
                                     if (isset($current_std_question)) {
                                         $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
@@ -122,7 +122,7 @@ if (isset($_SESSION['current_std_question'])) {
                                                (b) <input type='radio'  value='b' name='answer_" . $row['id'] . "'> <label for='ans2'>" . $row['option2'] . "</label><br>
                                                (c) <input type='radio'  value='c' name='answer_" . $row['id'] . "'> <label for='ans3'>" . $row['option3'] . "</label><br>
                                                (d) <input type='radio'  value='d' name='answer_" . $row['id'] . "'> <label for='ans4'>" . $row['option4'] . "</label>
-                                               <a class='btn btn-warning d-block' onclick='click_next(this.id)' id='next_$index'>Next</a>
+                                              <br> <a class='btn btn-warning ' onclick='click_next(this.id)' id='next_$index'>Next</a>
                                             </div>";
                                             
                                             $non_class_for_first = "d-none";
@@ -143,7 +143,7 @@ if (isset($_SESSION['current_std_question'])) {
 
                                                 var max_index = document.getElementById('max_index').value;
                                                 if (current_index == parseInt(max_index)){
-                                                    document.getElementById('final_submit').className = "d-block btn btn-danger";                                                    
+                                                    document.getElementById('final_submit').className = "d-block btn btn-primary";                                                    
                                                 }
                                                 document.getElementById('qustion_'+ current_index).className = "d-none";
                                                 document.getElementById('qustion_'+next_index).className = "d-block";
