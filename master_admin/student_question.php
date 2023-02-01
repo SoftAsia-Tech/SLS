@@ -85,16 +85,10 @@ if (isset($_SESSION['current_std_question'])) {
                         <div class="block-content /*collapse in*/">
                             <div class="span12">
                                 <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-
-                                    
-                                    <?php 
-                                    ?>
-
-                                    <tbody>
-                                        
-                                <form action='student_result.php' method='POST'>
-                                <!-- <div id="timer" style="float: right;"></div> -->
-                                    <?php
+                                <tbody>
+                                <!-- <div id="timer"></div> -->
+                                <div id="timer" style="display: inline-block; padding: 10px;"></div>
+                                <form action='student_result.php' method='POST'>                                    <?php
                                     if (isset($current_std_question)) {
                                         $conn = new PDO("mysql:host=localhost;dbname=sls", "root", "");
                                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -105,16 +99,14 @@ if (isset($_SESSION['current_std_question'])) {
                                         $quations_ids = "";
                                         $non_class_for_first = "d-block";
                                         $index = -1;
-                                        foreach ($rows as $row) {                                                    
+                                        foreach ($rows as $row) {     
                                             $id = $row['id'];
                                             $index = $index + 1;
                                             $str_id = strval($id);
                                             $quations_ids = $quations_ids.' '. $str_id;
                                             echo "
                                             <div>
-                                        
                                             </div> 
-
                                             <div id='qustion_$index' class='$non_class_for_first'>
                                             <b>" . $row['question_number'] . ". " . $row['question'] . "</b> <br>
                                                 <input type='hidden' value='question_" . $row['id'] . "' name='question_" . $row['id'] . "'>
@@ -130,25 +122,52 @@ if (isset($_SESSION['current_std_question'])) {
                                         echo "<input id='max_index' value='$index' hidden/>";       
                                             }
                                             ?>
-                                            <button type='submit' class='btn btn-primary d-none' id='final_submit'  value='<?php echo $quations_ids; ?>' name='submit_answers'>Save</button>
-                                        </form>
+                                            <button type='submit' class='btn btn-primary d-none next_q' id='final_submit'  value='<?php echo $quations_ids; ?>' name='submit_answers'>Save</button>
+                                    </form>
                                         <?php  //} 
                                         ?>
                                     </tbody>
                                         <script>
                                             var click_next = function(id){
-                                                
                                                 var current_index = id.split("_").pop();
                                                 var next_index = parseInt(current_index) + 1;
-
                                                 var max_index = document.getElementById('max_index').value;
                                                 if (current_index == parseInt(max_index)){
                                                     document.getElementById('final_submit').className = "d-block btn btn-primary";                                                    
                                                 }
                                                 document.getElementById('qustion_'+ current_index).className = "d-none";
                                                 document.getElementById('qustion_'+next_index).className = "d-block";
-                                                
                                             }
+                                            var currentQuestionIndex = 0;
+                                            var maxQuestionIndex = parseInt(document.getElementById("max_index").value);
+                                            var timer = 20;
+                                                                                    
+                                            var startTimer = function() {
+                                              document.getElementById("timer").innerHTML = timer;
+                                              var intervalId = setInterval(function() {
+                                                timer--;
+                                                document.getElementById("timer").innerHTML = timer;
+                                                if (timer === 0) {
+                                                  clearInterval(intervalId);
+                                                  if (currentQuestionIndex < maxQuestionIndex) {
+                                                    currentQuestionIndex++;
+                                                    document.getElementById("qustion_" + currentQuestionIndex).className = "d-block";
+                                                    document.getElementById("qustion_" + (currentQuestionIndex - 1)).className = "d-none";
+                                                    restartTimer();
+                                                  } else {
+                                                    document.getElementById("final_submit").className = "d-block btn btn-primary";
+                                                  }
+                                                }
+                                              }, 1000);
+                                            };
+                                            
+                                            var restartTimer = function() {
+                                              timer = 20;
+                                              startTimer();
+                                            };
+                                            
+                                            document.getElementById("qustion_0").className = "d-block";
+                                            startTimer();
                                         </script>
                                 </table>
                             </div>
@@ -163,25 +182,25 @@ if (isset($_SESSION['current_std_question'])) {
     </div>
 <script>
   // Set the number of seconds for the timer
-  var count = <?php echo $total_quastions * 15; ?>;
+//   var count = <?php echo $total_quastions * 15; ?>;
 
-  // Display the starting time in an element with id="timer"
-  document.getElementById("timer").innerHTML = count + " seconds";
+//   // Display the starting time in an element with id="timer"
+//   document.getElementById("timer").innerHTML = count + " seconds";
 
-  // Start the timer
-  var counter = setInterval(timer, 1000);
+//   // Start the timer
+//   var counter = setInterval(timer, 1000);
 
-  function timer() {
-    count = count - 1;
-    if (count <= 0) {
-      clearInterval(counter);
-      document.getElementById("timer").innerHTML = "EXPIRED";
-      // Disable the submit button when the timer reaches 0
-      document.getElementById("submit_answers").disabled = true;
-    } else {
-      document.getElementById("timer").innerHTML = count + " seconds";
-    }
-  }
+//   function timer() {
+//     count = count - 1;
+//     if (count <= 0) {
+//       clearInterval(counter);
+//       document.getElementById("timer").innerHTML = "EXPIRED";
+//       // Disable the submit button when the timer reaches 0
+//       document.getElementById("submit_answers").disabled = true;
+//     } else {
+//       document.getElementById("timer").innerHTML = count + " seconds";
+//     }
+//   }
 </script>
     <?php include('../includes/script.php'); ?>
 </body>
